@@ -9,16 +9,16 @@
 
 # Defino la matiz "numeros.completos" que contiene solo los datos (de los qu?micos y de las especies) pero no los nombres
 # de las filas (los ambientes) ni las columnas (los par?metros f?sico-qu?micos y las especies)
-Data<-read.table("Data/data.txt", header=FALSE)
+Data<-read.table("Data/Data_old.txt", header=FALSE)
 numeros.completos<-as.matrix(Data)
 
 #creo los nombres de las filas (los ambientes)
-nombrefilas1<-read.table("Nombre filas.txt", header=FALSE)
+nombrefilas1<-read.table("Data/Nombre filas.txt", header=FALSE)
 nombrefilas<-t(nombrefilas1)
 Ambientes<-nombrefilas
 
 #creo los nombres de las columnas (que son los par?metros f?sico-qu?micos y las especiess)
-nombrecolumnas1<-read.table("Nombre columnas.txt", header=FALSE)
+nombrecolumnas1<-read.table("Data/Nombre columnas.txt", header=FALSE)
 nombrecolumnas2<-t(nombrecolumnas1)
 nombrecolumnas<-t(nombrecolumnas2)
 

@@ -13,7 +13,7 @@ select_indicator_species <- function(com,env,group,alfa=0.05) {
   
  
   
-   # Calcula la matriz de probabilidades condicionales  P(estar en el ambiente...| apareci? el especimen....)
+  # Calcula la matriz de probabilidades condicionales  P(estar en el ambiente...| apareci? el especimen....)
   
   p.cond <- sweep(aggregate(com.pa,by=list(group),sum)[,-1],2,colSums(com.pa),'/')
   
@@ -35,7 +35,7 @@ select_indicator_species <- function(com,env,group,alfa=0.05) {
   
   names.indic <- names(indic)[indic==TRUE & !is.na(indic)]
 
-  return(names.indic)
+  return(list(names=names.indic, pcond=p.cond))
   
 }
   
