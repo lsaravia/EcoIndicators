@@ -9,18 +9,32 @@
 
 # Defino la matiz "numeros.completos" que contiene solo los datos (de los qu?micos y de las especies) pero no los nombres
 # de las filas (los ambientes) ni las columnas (los par?metros f?sico-qu?micos y las especies)
-Data<-read.table("Data/data.txt", header=FALSE)
-numeros.completos<-as.matrix(Data)
+
+
+# Original
+ Data<-read.table("Data/data.txt", header=FALSE)
+ numeros.completos<-as.matrix(Data)
+ 
+#Andres
+com <- read.table("Data/com.txt", header = TRUE,dec = ".")
+env <- read.table("Data/env.txt",header = T, dec = ".")
+group <-  as.factor(env$Ambiente)
 
 #creo los nombres de las filas (los ambientes)
-nombrefilas1<-read.table("Nombre filas.txt", header=FALSE)
-nombrefilas<-t(nombrefilas1)
-Ambientes<-nombrefilas
+#Original
+ nombrefilas1<-read.table("Data/Nombre filas.txt", header=FALSE)
+ nombrefilas<-t(nombrefilas1)
+ Ambientes<-nombrefilas
+
+
 
 #creo los nombres de las columnas (que son los par?metros f?sico-qu?micos y las especiess)
-nombrecolumnas1<-read.table("Nombre columnas.txt", header=FALSE)
-nombrecolumnas2<-t(nombrecolumnas1)
-nombrecolumnas<-t(nombrecolumnas2)
+
+#Original
+ nombrecolumnas1<-read.table("Data/Nombre columnas.txt", header=FALSE)
+ nombrecolumnas2<-t(nombrecolumnas1)
+ nombrecolumnas<-t(nombrecolumnas2)
+
 
 # Agrego nombre de filas y columnas a la matriz "n?meros.completos"
 colnames(numeros.completos)<-nombrecolumnas
@@ -29,27 +43,31 @@ numeros.completos
 
 #Se indica la cantidad de par?metros f?sico-qu?micos que hay en la base de datos (las primeras columnas)
 
-numero.fis.quim<-3
+#Andrés
+n.fq<-15
+
+
 
 #Se indica la cantidad de especies o familias que hay en la base de datos (las ?ltimas columnas)
-
-numero.biota<-4
+#Andrés
+n.biota<-43
 
 #Se recorta la matriz "numeros.completos" para dejar solo los datos de las especies (se recorta la parte de los par?metros f?sico-qu?micos)
 #se construye la matriz "n?meros" 
 
 numeros.inicial<-numeros.completos
-for(i in 1:numero.fis.quim){numeros.inicial<-numeros.inicial[,-1]}
+for(i in 1:n.fq){numeros.inicial<-numeros.inicial[,-1]}
 numeros<-numeros.inicial
 numeros
 
 
 ### Se recorta el nombre de las columnas para dejar solo el nombre de las especies (se saca el nombre de los qu?micos)
 
-Biota.inicial<-nombrecolumnas
-for(i in 1:numero.fis.quim){Biota.inicial<-Biota.inicial[-1]}
-Biota<-Biota.inicial
-Biota
+biota.inicial<-nombrecolumnas
+for(i in 1:n.fq){biota.inicial<-biota.inicial[-1]}
+biota<-biota.inicial
+biota
+
 
 
 
@@ -59,15 +77,33 @@ Biota
 ##########  PRIMERA PARTE: SELECCI?N Y USO DE ESPECIERS INDICADORAS
 ###########################################################################################################
 ###########################################################################################################
-###########################################################################################################
+  ###########################################################################################################
 
 
 # N?meros que se van a necesitar
 
+## Andrés.
+## los comentarios tienen que ver con simplificaciones de los procedimientos y reescrituras
+## para eliminar los bucles for.
+
+## En principio me parece que la matriz inicial tiene que estar separada.
+## por un lado una matriz 'Ambiental' en la que la primer columna son los ambientes y 
+## luego las variables físico químicas
+## Por otro lado una matriz de la comunidad.
+
+## Me parece más ordenado poner nombres más cortos 
+
+
+#Original
 numero.filas<-length(numeros[,1])
 numero.filas
 numero.columnas<-length(numeros[1,])
 numero.columnas
+
+
+#Andrés
+n.filas <- nrow(com)
+n.col <- ncol(com)
 
 
 #Se distinguen los ambientes en la matriz
@@ -102,11 +138,6 @@ cortes
 
 
 
-
-
-
-
-
 #Se traduce la matriz "n?meros" a ceros y unos. Se crea la "matriz.de.apariciones"
 #matriz que tiene 0 o 1 de acuerdo a si hubo o no apariciones del especimen en la muestra (en el paper la matriz "E")
 
@@ -117,10 +148,15 @@ for(k in 1:numero.columnas){
   }
 }
 matriz.de.apariciones<-matriz.de.apariciones.inicial
-colnames(matriz.de.apariciones)<-Biota
+colnames(matriz.de.apariciones)<-biota
 rownames(matriz.de.apariciones)<-Ambientes
 matriz.de.apariciones
 
+#Andrés
+
+com.pa <- decostand(com,method = "pa")
+
+#com.pa == matriz.de.apariciones
 
 
 #  Matriz con las probabilidades condicionales P(estar en el ambiente...| apareci? el especimen....)
@@ -134,12 +170,17 @@ for(l in 1:numero.ambientes){
 matriz.de.probabilid.condicional<-matriz.de.probabilid.condicional.inicial
 matriz.de.probabilid.condicional
 
-#Vector de apariciones totales. Muestra el n?mero total de muestras en las que apareci? cada especie
+#Andrés
+
+p.cond <- sweep(aggregate(com.pa,by=list(group),sum)[,-1],2,colSums(com.pa),'/')
+
+
+#Vector de apariciones totales. Muestraeil n?mero total de muestras en las que apareci? cada especie
 
 vectores.de.apariciones.totales.inicial<-rep(0,numero.columnas)
 for(i in 1:numero.columnas){vectores.de.apariciones.totales.inicial[i]<-sum(matriz.de.apariciones[,i])}
 vectores.de.apariciones.totales<-vectores.de.apariciones.totales.inicial
-vectores.de.apariciones.totales
+vectores.de.apariciones.totales ## directamente es == colSums(com.pa)
 
 
 
@@ -193,7 +234,7 @@ vector.de.indicadores #Vector que indica (con un 1) en que columna de la matriz 
 
 
 nombre.de.indicadores.inicial<-c(0)
-for(s in 1:numero.columnas){if(vector.de.indicadores[s]==1){nombre.de.indicadores.inicial<-c(nombre.de.indicadores.inicial,Biota[s])}}
+for(s in 1:numero.columnas){if(vector.de.indicadores[s]==1){nombre.de.indicadores.inicial<-c(nombre.de.indicadores.inicial,biota[s])}}
 nombre.de.indicadores.inicial<-nombre.de.indicadores.inicial[-1]
 nombre.de.indicadores<-nombre.de.indicadores.inicial
 nombre.de.indicadores #nombre de las especies indicadoras"
@@ -296,7 +337,7 @@ nuevas.muestras<-nuevas.muestras.inicial
 
 ## Nos quedamos solo con las especies indicadoras
 
-nuevas.muestras.A<-nuevas.muestras[,posicion.de.indicadores+numero.fis.quim]
+nuevas.muestras.A<-nuevas.muestras[,posicion.de.indicadores+n.fq]
 nuevas.muestras.A
 
 #Se suman las columnas de la matriz anterior
@@ -638,7 +679,7 @@ cortes<-function(j){
   return(cort)
 }
 matriz.cortes.inicial<-matrix(0,numero.de.cortes+1,1)
-for(k in 1:numero.fis.quim){
+for(k in 1:n.fq){
   matriz.cortes.inicial<-cbind(matriz.cortes.inicial,cortes(k))  
 }
 matriz.cortes<-matriz.cortes.inicial[,-1]
@@ -718,9 +759,9 @@ cantidad.apariciones.en.cada.cubo(4)
 ##############################################################################################################################
 ##############################################################################################################################
 
-matriz.apariciones.en.cada.cubo.todas.las.especies.inicial<-matrix(0,numero.biota,length(prueba.cubito[1,]))
-for(j in 1:numero.biota){
-  matriz.apariciones.en.cada.cubo.todas.las.especies.inicial[j,]<-cantidad.apariciones.en.cada.cubo(j+numero.fis.quim)
+matriz.apariciones.en.cada.cubo.todas.las.especies.inicial<-matrix(0,n.biota,length(prueba.cubito[1,]))
+for(j in 1:n.biota){
+  matriz.apariciones.en.cada.cubo.todas.las.especies.inicial[j,]<-cantidad.apariciones.en.cada.cubo(j+n.fq)
 }
 matriz.apariciones.en.cada.cubo.todas.las.especies<-matriz.apariciones.en.cada.cubo.todas.las.especies.inicial
 matriz.apariciones.en.cada.cubo.todas.las.especies
@@ -737,7 +778,7 @@ matriz.apariciones.en.cada.cubo.todas.las.especies.final.final
 
 especies.que.aparecen.en.la.muestra<-function(y){
   especies.que.aparecen.en.la.muestra.inicial<-rep(0,1)
-  for(f in (numero.fis.quim+1):(numero.fis.quim+numero.biota)){if(numeros.completos[y,f]!=0){especies.que.aparecen.en.la.muestra.inicial<-c(especies.que.aparecen.en.la.muestra.inicial,f)}}
+  for(f in (n.fq+1):(n.fq+n.biota)){if(numeros.completos[y,f]!=0){especies.que.aparecen.en.la.muestra.inicial<-c(especies.que.aparecen.en.la.muestra.inicial,f)}}
   if(length(especies.que.aparecen.en.la.muestra.inicial)==1){especies.que.aparecen.en.la.muestra.inicial<-c(0,0)}
   especies.que.aparecen.en.la.muestra<-especies.que.aparecen.en.la.muestra.inicial[-1]
   return(especies.que.aparecen.en.la.muestra)
@@ -770,7 +811,7 @@ for(i in 1:length(numeros.completos[,1])){
 largo.matriz<-largo.matriz.inicial
 largo.matriz
 
-matriz.especies.que.aparecen.inicial<-matrix(0,length(numeros.completos[,1]),numero.fis.quim)
+matriz.especies.que.aparecen.inicial<-matrix(0,length(numeros.completos[,1]),n.fq)
 for(j in 1:length(numeros.completos[,1])){
   matriz.especies.que.aparecen.inicial[j,]<-c(especies.que.aparecen.en.la.muestra(j),rep(0,largo.matriz-length(especies.que.aparecen.en.la.muestra(j)))) 
 }
@@ -784,7 +825,7 @@ matriz.especies.que.aparecen
 
 apariciones.en.cada.cubo.en.la.muestra<-function(t){
   apariciones.en.cada.cubo.en.la.muestra.inicial<-matrix(0,1,length(prueba.cubito[1,]))
-  for(b in 1:length(especies.que.aparecen.en.la.muestra(t))){apariciones.en.cada.cubo.en.la.muestra.inicial<-rbind(apariciones.en.cada.cubo.en.la.muestra.inicial,matriz.apariciones.en.cada.cubo.todas.las.especies.final.final[especies.que.aparecen.en.la.muestra(t)[b]-numero.fis.quim,])}
+  for(b in 1:length(especies.que.aparecen.en.la.muestra(t))){apariciones.en.cada.cubo.en.la.muestra.inicial<-rbind(apariciones.en.cada.cubo.en.la.muestra.inicial,matriz.apariciones.en.cada.cubo.todas.las.especies.final.final[especies.que.aparecen.en.la.muestra(t)[b]-n.fq,])}
   apariciones.en.cada.cubo.en.la.muestra<-apariciones.en.cada.cubo.en.la.muestra.inicial[-1,]
   rownames(apariciones.en.cada.cubo.en.la.muestra)<-nombre.de.las.especies.que.aparecen.en.la.muestra(t)
   return(apariciones.en.cada.cubo.en.la.muestra)
