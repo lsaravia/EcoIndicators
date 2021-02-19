@@ -1,6 +1,10 @@
 select_indicator_species <- function(com,env,group,alfa=0.05) {
   
+  # en esta función no usamos el argumento env.
+  # a medida que avancemos en las funciones veremos si se incluye en esta función o en otra
+  
   require(vegan)
+  
   group <- as.factor(group)
   
   # Agregar warnings y stop 
