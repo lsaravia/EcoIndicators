@@ -3,6 +3,8 @@ select_indicator_species <- function( ambientes, especies, alfa) {
   #
   # No funciona realmente porque copie el codigo sin modificar los nombres
   #
+  
+  
   independencia.inicial<-rep(0,numero.columnas)
   for(i in 1:numero.columnas){
     independencia.inicial[i]<-sum(((tapply(matriz.de.apariciones[,i],ambientes.como.factores,sum)-(vectores.de.apariciones.totales[i]/numero.ambientes))^2)/(vectores.de.apariciones.totales[i]/numero.ambientes))
