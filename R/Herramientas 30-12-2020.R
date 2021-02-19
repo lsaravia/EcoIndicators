@@ -25,6 +25,7 @@
 
 # Defino la matiz "numeros.completos" que contiene solo los datos (de los qu?micos y de las especies) pero no los nombres
 # de las filas (los ambientes) ni las columnas (los par?metros f?sico-qu?micos y las especies)
+<<<<<<< HEAD
 
 
 # Original
@@ -53,6 +54,20 @@ group <-  as.factor(env$Ambiente)
  nombrecolumnas2<-t(nombrecolumnas1)
  nombrecolumnas<-t(nombrecolumnas2)
 
+=======
+Data<-read.table("Data/Data_old.txt", header=FALSE)
+numeros.completos<-as.matrix(Data)
+
+#creo los nombres de las filas (los ambientes)
+nombrefilas1<-read.table("Data/Nombre filas.txt", header=FALSE)
+nombrefilas<-t(nombrefilas1)
+Ambientes<-nombrefilas
+
+#creo los nombres de las columnas (que son los par?metros f?sico-qu?micos y las especiess)
+nombrecolumnas1<-read.table("Data/Nombre columnas.txt", header=FALSE)
+nombrecolumnas2<-t(nombrecolumnas1)
+nombrecolumnas<-t(nombrecolumnas2)
+>>>>>>> 8209edafec7259b3447448f024c782a5ac822dd2
 
 # Agrego nombre de filas y columnas a la matriz "n?meros.completos"
 colnames(numeros.completos)<-nombrecolumnas
@@ -399,6 +414,8 @@ plot(ca(an.fact.indicadores))
 #Se elije el nivel de significaci?n del test
 nivel.signific.puntual<-0.1
 
+# Se aparta la especie indicadora de lo esperado?? esa sería la idea de este test.
+
 
 lim.sup<-(1/numero.ambientes)+qnorm(1-nivel.signific.puntual)*sqrt(((1/numero.ambientes)*(1-(1/numero.ambientes)))/sum(matriz.de.apariciones[,h]))
 lim.inf<-(1/numero.ambientes)-qnorm(1-nivel.signific.puntual)*sqrt(((1/numero.ambientes)*(1-(1/numero.ambientes)))/sum(matriz.de.apariciones[,h]))
@@ -421,6 +438,9 @@ matriz.de.coeficientes
 ############################################################################################################################
 
 
+### Implementar la estimación de a qué ambiente pertenece.
+# tomando: nuevas muestras, matriz de probabilidad condicional de las especies indicadoras, 
+# 
 
 # Se leen las nuevas muestras (que en principio tienen tanto valores de par?metros f?sico-qu?mico como de especies y familias)
 

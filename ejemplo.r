@@ -1,17 +1,18 @@
-source("R/func.r")
+#
+# The file data.txt have all the information about species and environments  
+#
+source("R/select_indicator_species.R")
 
-#
-# El archivo data.txt esta copiado directamente del excel 
-#
 da <- read.delim("Data/data.txt")
 str(da)
 
-select_indicator_species(da[,1],da[,18:50])
 
-source("R/select_indicator_species.R")
+# Select community (species) data
+com <- da[,18:50]
+# Select environmental data
+env <- da[,3:17]
 
-com <- read.table("Data/com.txt", header = TRUE,dec = ".")
-env <- read.table("Data/env.txt",header = T, dec = ".")
-group <-  as.factor(env$Ambiente)
+# Grouping factor
+group <- da[,1]
 
-select_indicator_species(com,env[,-1],group)
+select_indicator_species(com,env[,-1],group,alfa = 0.05)
