@@ -15,4 +15,4 @@ env <- da[,3:17]
 # Grouping factor
 group <- da[,1]
 
-select_indicator_species(com,env[,-1],group,alfa = 0.05)
+select_indicator_species(com,env,group,0.05)
