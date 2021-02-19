@@ -6,6 +6,22 @@
 ###########################################################################################################
 ###########################################################################################################
 
+# -----------------------------
+## Andrés.
+## los comentarios tienen que ver con simplificaciones de los procedimientos y reescrituras
+## para eliminar los bucles for, tratando de usar funciones 
+
+## En principio me parece que la matriz inicial tiene que estar separada en dos argumentos
+
+## por un lado una matriz 'Ambiental' en la que la primer columna es un factor con los ambientes y 
+## luego las variables físico químicas
+
+## Por otro lado una matriz de la comunidad.
+
+## opcionalmente puede ser ingresado como argumento el factor de ambientes.
+
+## Me parece más ordenado poner nombres más cortos 
+# -----------------------------------------------------
 
 # Defino la matiz "numeros.completos" que contiene solo los datos (de los qu?micos y de las especies) pero no los nombres
 # de las filas (los ambientes) ni las columnas (los par?metros f?sico-qu?micos y las especies)
@@ -15,10 +31,12 @@
  Data<-read.table("Data/data.txt", header=FALSE)
  numeros.completos<-as.matrix(Data)
  
-#Andres
+#Andres -------------------
 com <- read.table("Data/com.txt", header = TRUE,dec = ".")
 env <- read.table("Data/env.txt",header = T, dec = ".")
 group <-  as.factor(env$Ambiente)
+# ----------------------
+
 
 #creo los nombres de las filas (los ambientes)
 #Original
@@ -43,14 +61,22 @@ numeros.completos
 
 #Se indica la cantidad de par?metros f?sico-qu?micos que hay en la base de datos (las primeras columnas)
 
-#Andrés
+# Andrés ---------------------------
+
 n.fq<-15
+
+# ----------------------------------
 
 
 
 #Se indica la cantidad de especies o familias que hay en la base de datos (las ?ltimas columnas)
-#Andrés
+
+
+#Andrés ------------------------------------
+
 n.biota<-43
+
+# ----------------------------------
 
 #Se recorta la matriz "numeros.completos" para dejar solo los datos de las especies (se recorta la parte de los par?metros f?sico-qu?micos)
 #se construye la matriz "n?meros" 
@@ -82,16 +108,7 @@ biota
 
 # N?meros que se van a necesitar
 
-## Andrés.
-## los comentarios tienen que ver con simplificaciones de los procedimientos y reescrituras
-## para eliminar los bucles for.
 
-## En principio me parece que la matriz inicial tiene que estar separada.
-## por un lado una matriz 'Ambiental' en la que la primer columna son los ambientes y 
-## luego las variables físico químicas
-## Por otro lado una matriz de la comunidad.
-
-## Me parece más ordenado poner nombres más cortos 
 
 
 #Original
@@ -101,9 +118,11 @@ numero.columnas<-length(numeros[1,])
 numero.columnas
 
 
-#Andrés
+#Andrés (no se si esto será necesario después) ---------------------------------------------
 n.filas <- nrow(com)
 n.col <- ncol(com)
+
+# -------------------------------------------------------------
 
 
 #Se distinguen los ambientes en la matriz
@@ -152,12 +171,13 @@ colnames(matriz.de.apariciones)<-biota
 rownames(matriz.de.apariciones)<-Ambientes
 matriz.de.apariciones
 
-#Andrés
+#Andrés ----------------------------------
 
 com.pa <- decostand(com,method = "pa")
 
 #com.pa == matriz.de.apariciones
 
+# ---------------------------------------
 
 #  Matriz con las probabilidades condicionales P(estar en el ambiente...| apareci? el especimen....)
 
@@ -170,18 +190,25 @@ for(l in 1:numero.ambientes){
 matriz.de.probabilid.condicional<-matriz.de.probabilid.condicional.inicial
 matriz.de.probabilid.condicional
 
-#Andrés
+#Andrés ------------------------------------------------------------------------
 
 p.cond <- sweep(aggregate(com.pa,by=list(group),sum)[,-1],2,colSums(com.pa),'/')
 
+
+# --------------------------------------------------------------------------------
 
 #Vector de apariciones totales. Muestraeil n?mero total de muestras en las que apareci? cada especie
 
 vectores.de.apariciones.totales.inicial<-rep(0,numero.columnas)
 for(i in 1:numero.columnas){vectores.de.apariciones.totales.inicial[i]<-sum(matriz.de.apariciones[,i])}
 vectores.de.apariciones.totales<-vectores.de.apariciones.totales.inicial
-vectores.de.apariciones.totales ## directamente es == colSums(com.pa)
+vectores.de.apariciones.totales 
 
+# Andrés ------------------
+# directamente es == 
+  
+  colSums(com.pa)
+# ---------------------------------
 
 
 # Gr?fico que muestra la matriz de probabilidad condicional
@@ -201,7 +228,19 @@ abline(h=1)
 text(1:length(vectores.de.apariciones.totales), 1.2, vectores.de.apariciones.totales)
 
 
+# Andrés
+par(mfrow=c(1,1))
 
+plot(1:length(p.cond[1,]), p.cond[1,], 
+     type="p",pch=19,xlim=c(0, length(p.cond[1,])),ylim = c(-0.2, 3), 
+     col = 1, lty = 1,lwd=2,axes = TRUE, xlab="", ylab="",main="P(estar en el ambiente --- | apareci? el especimen ---)")
+for(k in 2:nlevels(group)){points(1:length(p.cond[1,]), p.cond[k,],pch=19,col=k,lwd=2)}
+legend("topleft",col=1:nlevels(group),legend =levels(group), lwd=2, bty = "n")
+axis(1, at = seq(1, length(colSums(com.pa)), by = 1), las=2)
+abline(h=0)
+abline(h=1/nlevels(group))
+abline(h=1)
+text(1:length(colSums(com.pa)), 1.2, colSums(com.pa))
 
 
 
@@ -215,13 +254,40 @@ text(1:length(vectores.de.apariciones.totales), 1.2, vectores.de.apariciones.tot
 nivel.signific.independencia<-0.05
 
 
+# Andrés -----------------------
+
+alfa <- 0.05
+
+# ---------------------------
+
 independencia.inicial<-rep(0,numero.columnas)
 for(i in 1:numero.columnas){
   independencia.inicial[i]<-sum(((tapply(matriz.de.apariciones[,i],ambientes.como.factores,sum)-(vectores.de.apariciones.totales[i]/numero.ambientes))^2)/(vectores.de.apariciones.totales[i]/numero.ambientes))
 }
 independencia<-independencia.inicial
 independencia
-qchisq(1-0.005, numero.ambientes-1, ncp=0, lower.tail = T, log.p = F)
+
+# Andrés ----------------------------------------
+# i <- 1
+# obs <- tapply(matriz.de.apariciones[,i],ambientes.como.factores,sum)
+# sum(((tapply(matriz.de.apariciones[,i],ambientes.como.factores,sum)-(vectores.de.apariciones.totales[i]/numero.ambientes))^2)/(vectores.de.apariciones.totales[i]/numero.ambientes))
+# 
+# obs <- tapply(matriz.de.apariciones[,i],ambientes.como.factores,sum)
+# esp <- vectores.de.apariciones.totales[i]/numero.ambientes
+# 
+# sum((obs-esp)^2/esp)
+
+
+obs <- aggregate(com.pa,by=list(group),sum)[,-1]
+esp <- colSums(com.pa)/nlevels(group)
+
+indep <- colSums(sweep((sweep(obs,2,esp,'-')^2),2,esp,'/'))
+
+# -------------------------------------------------
+
+
+
+qchisq(1-0.005  , numero.ambientes-1, ncp=0, lower.tail = T, log.p = F)
 
 vector.de.indicadores.inicial<-rep(0,numero.columnas)
 for(k in 1:numero.columnas){
@@ -233,17 +299,33 @@ vector.de.indicadores<-vector.de.indicadores.inicial
 vector.de.indicadores #Vector que indica (con un 1) en que columna de la matriz "numeros" hay una especie indicadora
 
 
+# Andrés ------------------------------------
+
+indic <-  indep > qchisq(1-alfa, nlevels(group)-1, ncp=0, lower.tail = TRUE, log.p = FALSE)
+
+# ------------------------------------------
+
+
+
 nombre.de.indicadores.inicial<-c(0)
 for(s in 1:numero.columnas){if(vector.de.indicadores[s]==1){nombre.de.indicadores.inicial<-c(nombre.de.indicadores.inicial,biota[s])}}
 nombre.de.indicadores.inicial<-nombre.de.indicadores.inicial[-1]
 nombre.de.indicadores<-nombre.de.indicadores.inicial
 nombre.de.indicadores #nombre de las especies indicadoras"
 
+
+# Andrés ----------------------------
+
+names(indic)[indic==TRUE & !is.na(indic)]
+
+#----------------------------------
+
 posicion.de.indicadores.inicial<-rep(0,numero.columnas)
 for(k in 1:numero.columnas){if(vector.de.indicadores[k]==1){posicion.de.indicadores.inicial[k]<-k}}
 posicion.de.indicadores.inicial<-posicion.de.indicadores.inicial[posicion.de.indicadores.inicial!=0]
 posicion.de.indicadores<-posicion.de.indicadores.inicial
 posicion.de.indicadores #el n?mero de columna de la matriz "numeros" correspondiente a las especies indicadoras
+
 
 
 #Se recorta la matriz de probabilidad condicional y solo se miran las columnas de las especies indicadoras
@@ -260,6 +342,13 @@ colnames(matriz.de.proba.condicional.de.indicadores)<-nombre.de.indicadores
 matriz.de.proba.condicional.de.indicadores
 
 
+# Andrés ------------------------------------------
+
+subset(p.cond,select = which(indic==1, arr.ind = T))
+
+
+---------------------------------
+
 
 #Se recorta la matriz de apariciones y solo se miran las columnas de las especies indicadoras
 
@@ -273,6 +362,16 @@ rownames(matriz.de.apariciones.de.indicadores)<-Ambientes
 colnames(matriz.de.apariciones.de.indicadores)<-nombre.de.indicadores
 matriz.de.apariciones.de.indicadores
 
+
+# Andrés ------------------------------------------
+
+subset(com.pa,select = which(indic==1, arr.ind = T))
+
+
+---------------------------------
+
+
+
 #An?lisis ?til en algunos casos:
 #An?lisis Factorial de correspondencias de los indicadores y los ambientes
 
@@ -282,6 +381,9 @@ for(t in 1:numero.ambientes){
 }
 an.fact.indicadores<-an.fact.indicadores.inicial
 an.fact.indicadores
+
+
+
 
 #install.packages("ca")
 library(ca)
