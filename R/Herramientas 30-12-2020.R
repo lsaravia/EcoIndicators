@@ -187,7 +187,7 @@ rownames(matriz.de.apariciones)<-Ambientes
 matriz.de.apariciones
 
 #Andrés ----------------------------------
-
+library(vegan)
 com.pa <- decostand(com,method = "pa")
 
 #com.pa == matriz.de.apariciones
@@ -444,8 +444,17 @@ matriz.de.coeficientes
 
 # Se leen las nuevas muestras (que en principio tienen tanto valores de par?metros f?sico-qu?mico como de especies y familias)
 
-nuevas.muestras1.inicial<-read.table("Nuevas Muestras.txt", header=FALSE)
+nuevas.muestras1.inicial<-read.table("Data/NuevasMuestras.txt", header=FALSE)
 nuevas.muestras1<-as.matrix(nuevas.muestras1.inicial)
+
+# Andrés ------
+
+nuevas.muestras <- read.table("Data/NuevasMuestras.txt", header=FALSE)
+
+env.nueva <- nuevas.muestras[,1:15]
+
+com.nueva <- nuevas.muestras[,16:43]
+# ------------------
 
 #se traduce a 0 y 1 de acuerdo a si hubo apariciones o no
 
@@ -457,10 +466,22 @@ for(k in 1:length(nuevas.muestras1[1,])){
 }
 nuevas.muestras<-nuevas.muestras.inicial
 
+# Andrés ---------------------
+
+com.nueva.pa <- decostand(com.nueva,method="pa")
+
+# ---------------------------
+
 ## Nos quedamos solo con las especies indicadoras
 
 nuevas.muestras.A<-nuevas.muestras[,posicion.de.indicadores+n.fq]
 nuevas.muestras.A
+
+# Andrés ---------------------
+
+
+
+# ---------------------------
 
 #Se suman las columnas de la matriz anterior
 
