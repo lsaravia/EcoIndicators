@@ -442,12 +442,10 @@ alfa2 <- 0.05
 
 # se espera que haya un valor de lim.sup y lim.inf para cada especie indicadora o para todas?
 
+n <- nlevels(group)
 
- lim.sup<-(1/nlevels(group))+qnorm(1-alfa2)*sqrt(((1/nlevels(group))*(1-(1/nlevels(group))))/colSums(com.pa.indic))
- lim.inf<-(1/nlevels(group))-qnorm(1-alfa2)*sqrt(((1/nlevels(group))*(1-(1/nlevels(group))))/colSums(com.pa.indic))
-
-# sp.coef <- sp.indic$pcond > lim.sup 
- 
+lim.sup<-(1/n)+qnorm(1-alfa2)*sqrt(((1/n)*(1-(1/n)))/colSums(com.pa.indic))
+lim.inf<-(1/n)-qnorm(1-alfa2)*sqrt(((1/n)*(1-(1/n)))/colSums(com.pa.indic))
 
 
 D <- p.cond.indic
@@ -488,6 +486,10 @@ env.nueva <- nuevas.muestras[,1:15]
 
 com.nueva <- nuevas.muestras[,16:58]
 names(com.nueva) <- names(com)
+
+write.table(com.nueva,file = "Data/comnueva.txt")
+
+com.nueva <- read.table("Data/comnueva.txt", header = TRUE)
 # ------------------
 
 #se traduce a 0 y 1 de acuerdo a si hubo apariciones o no

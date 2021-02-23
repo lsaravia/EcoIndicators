@@ -102,6 +102,9 @@ identify_env <- function(com,group,com.to.identify,alfa1=0.05,alfa2=0.05){
   
   est.env <- A %*% Dt
   
+  # Seleccionamos del vector de estimación del ambiente (est.env), 
+  # el nombre de la columna que corresponde al mayor valor.
+  
   select.est.env <- colnames(est.env)[apply(est.env, 1, which.max)]
   
   return(list(Environment = select.est.env))
