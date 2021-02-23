@@ -35,8 +35,10 @@ select_indicator_species <- function(com,group,alfa=0.05) {
   # Selecciona dentro del vector de nombres los que corresponden a especies indicadoras
   
   names.indic <- names(indic)[indic==TRUE & !is.na(indic)]
+  
+  n.col.indic <- which(indic==1, arr.ind = T)
 
-  return(list(names=names.indic, pcond=p.cond))
+  return(list(names=names.indic, pcond=p.cond, col.indic = n.col.indic))
   
 }
   

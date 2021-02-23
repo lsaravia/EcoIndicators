@@ -358,8 +358,9 @@ matriz.de.proba.condicional.de.indicadores
 
 
 # Andrés ------------------------------------------
+n.col.indic <- which(indic==1, arr.ind = T)
 
-p.cond.indic <- subset(p.cond,select = which(indic==1, arr.ind = T))
+p.cond.indic <- subset(p.cond,select = n.col.indic)
 
 
 ---------------------------------
