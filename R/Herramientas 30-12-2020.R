@@ -359,7 +359,7 @@ matriz.de.proba.condicional.de.indicadores
 
 # Andrés ------------------------------------------
 
-subset(p.cond,select = which(indic==1, arr.ind = T))
+p.cond.indic <- subset(p.cond,select = which(indic==1, arr.ind = T))
 
 
 ---------------------------------
@@ -380,7 +380,7 @@ matriz.de.apariciones.de.indicadores
 
 # Andrés ------------------------------------------
 
-subset(com.pa,select = which(indic==1, arr.ind = T))
+com.pa.indic <- subset(com.pa,select = which(indic==1, arr.ind = T))
 
 
 ---------------------------------
@@ -431,6 +431,38 @@ rownames(matriz.de.coeficientes)<-niveles.ambientes
 colnames(matriz.de.coeficientes)<-nombre.de.indicadores
 matriz.de.coeficientes
 
+# Andrés ------------------------------
+# no tiene que ser el mismo este alfa?
+
+alfa2 <- 0.05
+
+# en la fórmula anterior el límite inferior y superior se calcula dividiendo por sum(matriz.de.apariciones[,h])
+# y el h no está definido, porque h quedó en memoria igual a 1, calculó la suma de la primer columna.
+
+# se espera que haya un valor de lim.sup y lim.inf para cada especie indicadora o para todas?
+
+
+ lim.sup<-(1/nlevels(group))+qnorm(1-alfa2)*sqrt(((1/nlevels(group))*(1-(1/nlevels(group))))/colSums(com.pa.indic))
+ lim.inf<-(1/nlevels(group))-qnorm(1-alfa2)*sqrt(((1/nlevels(group))*(1-(1/nlevels(group))))/colSums(com.pa.indic))
+
+# sp.coef <- sp.indic$pcond > lim.sup 
+ 
+
+
+D <- p.cond.indic
+
+Dt <- t(D)
+
+
+Dt[Dt > lim.sup | Dt < lim.inf] <- Dt[Dt > lim.sup | Dt < lim.inf] - 1/nlevels(group)
+
+Dt[Dt < lim.sup & Dt > lim.inf] <- 0
+
+## Dt es la transpuesta de la matriz de coeficientes
+
+
+# ----------------------------------------------------
+
 ############################################################################################################################
 ############################################################################################################################
 #Funci?n que dada un conjunto de muestras nuevas, estima a que ambiente pertenece
@@ -444,8 +476,8 @@ matriz.de.coeficientes
 
 # Se leen las nuevas muestras (que en principio tienen tanto valores de par?metros f?sico-qu?mico como de especies y familias)
 
-nuevas.muestras1.inicial<-read.table("Data/NuevasMuestras.txt", header=FALSE)
-nuevas.muestras1<-as.matrix(nuevas.muestras1.inicial)
+nuevas.muestras.inicial<-read.table("Data/NuevasMuestras.txt", header=FALSE)
+nuevas.muestras<-as.matrix(nuevas.muestras.inicial)
 
 # Andrés ------
 
@@ -453,15 +485,16 @@ nuevas.muestras <- read.table("Data/NuevasMuestras.txt", header=FALSE)
 
 env.nueva <- nuevas.muestras[,1:15]
 
-com.nueva <- nuevas.muestras[,16:43]
+com.nueva <- nuevas.muestras[,16:58]
+names(com.nueva) <- names(com)
 # ------------------
 
 #se traduce a 0 y 1 de acuerdo a si hubo apariciones o no
 
-nuevas.muestras.inicial<-matrix(0,length(nuevas.muestras1[,1]),length(nuevas.muestras1[1,]))
-for(k in 1:length(nuevas.muestras1[1,])){
-  for(j in 1:length(nuevas.muestras1[,1])){
-    if(nuevas.muestras1[j,k]>0){nuevas.muestras.inicial[j,k]<-1}
+nuevas.muestras.inicial<-matrix(0,length(nuevas.muestras[,1]),length(nuevas.muestras[1,]))
+for(k in 1:length(nuevas.muestras[1,])){
+  for(j in 1:length(nuevas.muestras[,1])){
+    if(nuevas.muestras[j,k]>0){nuevas.muestras.inicial[j,k]<-1}
   }
 }
 nuevas.muestras<-nuevas.muestras.inicial
@@ -472,16 +505,38 @@ com.nueva.pa <- decostand(com.nueva,method="pa")
 
 # ---------------------------
 
+
+
+
+
+
 ## Nos quedamos solo con las especies indicadoras
 
 nuevas.muestras.A<-nuevas.muestras[,posicion.de.indicadores+n.fq]
 nuevas.muestras.A
 
+
+
 # Andrés ---------------------
 
+  sp.indic <- select_indicator_species(com,env$Ambiente)
 
+  #tomo una parte de la funnción para seleccionar especies 
+
+  alfa <- 0.05
+  indic <-  indep > qchisq(1-alfa, nlevels(group)-1, ncp=0, lower.tail = TRUE, log.p = FALSE)
+
+  com.nueva.sel <- subset(com.nueva.pa,select = which(indic==1, arr.ind = T))
+  
+  #nuevas.muestras.A == com.nueva.sel con este procedimiento son iguales.
+  
+  
 
 # ---------------------------
+  
+  
+  
+  
 
 #Se suman las columnas de la matriz anterior
 
@@ -489,6 +544,18 @@ matriz.A.inicial<-matrix(0,1,length(nuevas.muestras.A[1,]))
 for(j in 1:length(nuevas.muestras.A[1,])){matriz.A.inicial[1,j]<-sum(nuevas.muestras.A[,j])}
 matriz.A<-matriz.A.inicial
 matriz.A
+
+
+# Andrés ------------------------------
+
+com.nueva.sel.sum <- colSums(com.nueva.sel)
+
+
+#  com.nueva.sel.sum == matriz.A son iguales
+
+# -------------------------------------
+
+
 
 #########################################################################################################################################
 #########################################################################################################################################
@@ -499,9 +566,13 @@ matriz.A
 estimacion.ambientes<-matriz.A%*%t(matriz.de.coeficientes)
 estimacion.ambientes
 
+# Andrés --------------------------------------------
 
+est.env <- com.nueva.sel.sum %*% Dt
 
+colnames(est.env)[apply(est.env, 1, which.max)]
 
+# ---------------------------------------------------
 
 
 
