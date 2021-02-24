@@ -1,3 +1,30 @@
+#' Select indicator species
+#' 
+#' This function select species that indicate with a given probability the 
+#' pertenence to an environment using a matrix of species samples at different
+#' environments using a chisqrt test with a given significance level. 
+#'
+#' @param com matrix or data.frame with species in columns and samples in rows
+#' @param group vector of the environments of the samples
+#' @param alfa significance level used for the test
+#'
+#' @return A data.frame with the species that are abov
+#' @export
+#'
+#' @examples
+#' da <- read.delim("Data/data.txt")
+#' ############################# CHANGE THIS TO EMBEDDED PACKAGE DATA
+#' 
+#' # Select community (species) data
+#' com <- da[,18:50]
+#' # Select environmental data
+#' env <- da[,3:17]
+#' 
+#' # Grouping factor
+#' group <- da[,1]
+#' 
+#' select_indicator_species(com,group,0.05)
+#' 
 select_indicator_species <- function(com,group,alfa=0.05) {
   
   require(vegan)
