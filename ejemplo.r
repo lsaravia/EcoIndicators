@@ -15,5 +15,6 @@ env <- da[,3:17]
 # Grouping factor
 group <- da[,1]
 
-source("R/select_indicator_species.R")
-select_indicator_species(com,group,0.05)
+indic <- select_indicator_species(com,group,0.01)
+
+
