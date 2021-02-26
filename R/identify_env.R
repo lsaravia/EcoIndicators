@@ -1,20 +1,27 @@
-identify_env <- function(com,group,com.to.identify,alfa1=0.05,alfa2=0.05){
+#' Identify the environment that 
+#'
+#' @param com The original community used to select indicator species
+#' @param com.to.identify A new sample o group of samples to identify the e
+#' environment that they belong.
+#' @param indicator.species Result of 'selec_indicator_species'
+#' @param alfa significance level used for the test
+#' 
+#'
+#' @return The environment.
+#' @export
+#'
+#' @examples
+identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   
   require(vegan)
   
   # Agregar warnings y stop 
   # revisando algunas condiciones de los argumentos
   
-  # Guardamos en una variable el resultado de seleccionar las especies indicadoras
-  
-  sp.indic <-  select_indicator_species(com,group,alfa1)
- 
-  
-   
   # Creamos un subconjunto de las probabilidades condicionales con las que 
   # corresponden a las especies indicadoras
   
-  pcond.indic <- subset(sp.indic$pcond,select = sp.indic$col.indic)
+  pcond.indic <- subset(indicator.species$pcond,select = indicator.species$col.indic)
 
   
 
@@ -23,7 +30,7 @@ identify_env <- function(com,group,com.to.identify,alfa1=0.05,alfa2=0.05){
 
   com.pa <- decostand(com,method = "pa")
 
-  com.pa.indic <- subset(com.pa,select = sp.indic$col.indic)
+  com.pa.indic <- subset(com.pa,select = indicator.species$col.indic)
 
   
   #-----------------------------------------------------
@@ -50,7 +57,7 @@ identify_env <- function(com,group,com.to.identify,alfa1=0.05,alfa2=0.05){
   
   
   
-  n <- nlevels(group) # n es el número de ambientes
+  n <- indicator.species$ngroups # n es el número de ambientes
  
   lim.sup<-(1/n)+qnorm(1-alfa2)*sqrt(((1/n)*(1-(1/n)))/colSums(com.pa.indic))
   lim.inf<-(1/n)-qnorm(1-alfa2)*sqrt(((1/n)*(1-(1/n)))/colSums(com.pa.indic))
@@ -59,7 +66,7 @@ identify_env <- function(com,group,com.to.identify,alfa1=0.05,alfa2=0.05){
   # me parece más prolijo, crearla primero igual al subcojunto de la matriz
   # de probabilidades condicionales de las especies indicadoras. 
   
-  D <- p.cond.indic
+  D <- pcond.indic
   
   # Calculamos la transpuesta
   

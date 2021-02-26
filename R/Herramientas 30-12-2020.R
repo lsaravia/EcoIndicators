@@ -54,7 +54,7 @@ group <-  as.factor(env$Ambiente)
  nombrecolumnas2<-t(nombrecolumnas1)
  nombrecolumnas<-t(nombrecolumnas2)
 
-=======
+#=======
 Data<-read.table("Data/Data_old.txt", header=FALSE)
 numeros.completos<-as.matrix(Data)
 
@@ -67,7 +67,7 @@ Ambientes<-nombrefilas
 nombrecolumnas1<-read.table("Data/Nombre columnas.txt", header=FALSE)
 nombrecolumnas2<-t(nombrecolumnas1)
 nombrecolumnas<-t(nombrecolumnas2)
->>>>>>> 8209edafec7259b3447448f024c782a5ac822dd2
+#>>>>>>> 8209edafec7259b3447448f024c782a5ac822dd2
 
 # Agrego nombre de filas y columnas a la matriz "n?meros.completos"
 colnames(numeros.completos)<-nombrecolumnas
