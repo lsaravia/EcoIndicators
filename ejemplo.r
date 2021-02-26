@@ -17,4 +17,6 @@ group <- da[,1]
 
 indic <- select_indicator_species(com,group,0.01)
 
+newcom <- read.delim("Data/comnueva.txt",)
 
+env.id <- identify_env(com,newcom,indic)

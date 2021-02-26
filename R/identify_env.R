@@ -59,8 +59,8 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   
   n <- indicator.species$ngroups # n es el número de ambientes
  
-  lim.sup<-(1/n)+qnorm(1-alfa2)*sqrt(((1/n)*(1-(1/n)))/colSums(com.pa.indic))
-  lim.inf<-(1/n)-qnorm(1-alfa2)*sqrt(((1/n)*(1-(1/n)))/colSums(com.pa.indic))
+  lim.sup<-(1/n)+qnorm(1-alfa)*sqrt(((1/n)*(1-(1/n)))/colSums(com.pa.indic))
+  lim.inf<-(1/n)-qnorm(1-alfa)*sqrt(((1/n)*(1-(1/n)))/colSums(com.pa.indic))
   
   # En vez de crear una matriz de ceros y después completarla, 
   # me parece más prolijo, crearla primero igual al subcojunto de la matriz
@@ -97,7 +97,7 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   
   # Y seleccionamos un subcojunto con las especies indicadoras
   
-  com2id.sel <- subset(com2id.pa,select = sp.indic$col.indic)
+  com2id.sel <- subset(com2id.pa,select = indicator.species$col.indic)
   
   # Calculamos la matriz A del paper con la suma de las columnas de especies indicadoras
   # de la comunidad a identificar (com2id.sel)
