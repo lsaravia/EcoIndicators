@@ -1,9 +1,12 @@
-#' Identify the environment that 
+#' Identify the environment from new samples of community species
+#' 
+#' This function use the result of `select_indicator.species` to identify a new 
+#' set of samples of the community
 #'
 #' @param com The original community used to select indicator species
-#' @param com.to.identify A new sample o group of samples to identify the e
+#' @param com.to.identify A new sample o group of samples to identify the 
 #' environment that they belong.
-#' @param indicator.species Result of 'selec_indicator_species'
+#' @param indicator.species Result of `selec_indicator_species`
 #' @param alfa significance level used for the test
 #' 
 #'
@@ -21,7 +24,7 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   # Creamos un subconjunto de las probabilidades condicionales con las que 
   # corresponden a las especies indicadoras
   
-  pcond.indic <- subset(indicator.species$pcond,select = indicator.species$col.indic)
+  pcond.indic <- indicator.species$pcond[,indicator.species$names ] #subset(indicator.species$pcond,select = indicator.species$col.indic)
 
   
 
@@ -30,9 +33,8 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
 
   com.pa <- decostand(com,method = "pa")
 
-  com.pa.indic <- subset(com.pa,select = indicator.species$col.indic)
+  com.pa.indic <- com.pa[,indicator.species$names] #subset(com.pa,select = indicator.species$col.indic)
 
-  
   #-----------------------------------------------------
   # Creamos la matriz de coeficientes (D en el paper)
   # ----------------------------------------------------
@@ -57,7 +59,7 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   
   
   
-  n <- indicator.species$ngroups # n es el número de ambientes
+  n <- nrow(indicator.species$pcond) # n es el número de ambientes
  
   lim.sup<-(1/n)+qnorm(1-alfa)*sqrt(((1/n)*(1-(1/n)))/colSums(com.pa.indic))
   lim.inf<-(1/n)-qnorm(1-alfa)*sqrt(((1/n)*(1-(1/n)))/colSums(com.pa.indic))
@@ -97,7 +99,7 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   
   # Y seleccionamos un subcojunto con las especies indicadoras
   
-  com2id.sel <- subset(com2id.pa,select = indicator.species$col.indic)
+  com2id.sel <- com2id.pa[,indicator.species$names ]# subset(com2id.pa,select = indicator.species$col.indic)
   
   # Calculamos la matriz A del paper con la suma de las columnas de especies indicadoras
   # de la comunidad a identificar (com2id.sel)

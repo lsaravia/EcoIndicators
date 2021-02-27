@@ -67,7 +67,7 @@ select_indicator_species <- function(com,group,alfa=0.05) {
   
   n.col.indic <- which(indic==1, arr.ind = T)
 
-  return(list(names=names.indic, pcond=p.cond, col.indic = n.col.indic, ngroups = nlevels(group)))
+  return(list(names=names.indic, pcond=p.cond))
   
 }
   
