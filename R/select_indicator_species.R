@@ -49,12 +49,12 @@ select_indicator_species <- function(com,group,alfa=0.05) {
   # Calcula la matriz de independencia
   
   # Si me guío por el paper, 
-  #observed <- aggregate(com.pa,by=list(group),sum)[,-1]
-  observed <- p.cond
+  
+  observed <- aggregate(com.pa,by=list(group),sum)[,-1]
   expected <- colSums(com.pa)/nlevels(group)
   
-  indep <- colSums(sweep((sweep(observed,2,expected,'-')^2),2,expected,'/'))
   
+  indep <- colSums(sweep((sweep(observed,2,expected,'-')^2),2,expected,'/'))
   
   # Calcula un vector lógico de indicadores indicando cuándo es mayor
   # el valor de independencia respecto del calculado por la distribución chisq

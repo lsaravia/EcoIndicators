@@ -300,7 +300,7 @@ indep <- colSums(sweep((sweep(obs,2,esp,'-')^2),2,esp,'/'))
 
 # -------------------------------------------------
 
-
+nivel.signific.independencia <- 0.005
 
 qchisq(1-0.005  , numero.ambientes-1, ncp=0, lower.tail = T, log.p = F)
 
@@ -316,7 +316,7 @@ vector.de.indicadores #Vector que indica (con un 1) en que columna de la matriz 
 
 # Andrés ------------------------------------
 
-indic <-  indep > qchisq(1-alfa, nlevels(group)-1, ncp=0, lower.tail = TRUE, log.p = FALSE)
+indic <-  indep > qchisq(1-alfa, nlevels(as.factor(group))-1, ncp=0, lower.tail = TRUE, log.p = FALSE)
 
 # ------------------------------------------
 
@@ -368,7 +368,7 @@ p.cond.indic <- subset(p.cond,select = n.col.indic)
 
 #Se recorta la matriz de apariciones y solo se miran las columnas de las especies indicadoras
 
-matriz.de.apariciones.de.indicadores.inicial<-matrix(0,numero.filas,1)
+matriz.de.apariciones.de.indicadores.inicial <- matrix(0,numero.filas,1)
 for(l in 1:numero.columnas){
   if(vector.de.indicadores[l]==1){matriz.de.apariciones.de.indicadores.inicial<-cbind(matriz.de.apariciones.de.indicadores.inicial,matriz.de.apariciones[,l])}
 }
@@ -383,7 +383,7 @@ matriz.de.apariciones.de.indicadores
 
 com.pa.indic <- subset(com.pa,select = which(indic==1, arr.ind = T))
 
-
+rowsum(com.pa.indic)
 ---------------------------------
 
 
@@ -420,9 +420,14 @@ nivel.signific.puntual<-0.1
 
 lim.sup<-(1/numero.ambientes)+qnorm(1-nivel.signific.puntual)*sqrt(((1/numero.ambientes)*(1-(1/numero.ambientes)))/sum(matriz.de.apariciones[,h]))
 lim.inf<-(1/numero.ambientes)-qnorm(1-nivel.signific.puntual)*sqrt(((1/numero.ambientes)*(1-(1/numero.ambientes)))/sum(matriz.de.apariciones[,h]))
+
 matriz.de.coeficientes.inicial<-matrix(0,numero.ambientes,sum(vector.de.indicadores))
 for(i in 1:numero.ambientes){
   for(j in 1:sum(vector.de.indicadores)){
+    
+    lim.sup<-(1/numero.ambientes)+qnorm(1-nivel.signific.puntual)*sqrt(((1/numero.ambientes)*(1-(1/numero.ambientes)))/sum(matriz.de.apariciones.de.indicadores[,j]))
+    lim.inf<-(1/numero.ambientes)-qnorm(1-nivel.signific.puntual)*sqrt(((1/numero.ambientes)*(1-(1/numero.ambientes)))/sum(matriz.de.apariciones.de.indicadores[,j]))
+    
     if(matriz.de.proba.condicional.de.indicadores[i,j]>lim.sup){matriz.de.coeficientes.inicial[i,j]<-matriz.de.proba.condicional.de.indicadores[i,j]-(1/numero.ambientes)}
     if(matriz.de.proba.condicional.de.indicadores[i,j]<lim.inf){matriz.de.coeficientes.inicial[i,j]<-matriz.de.proba.condicional.de.indicadores[i,j]-(1/numero.ambientes)}
   }
@@ -478,6 +483,9 @@ Dt[Dt < lim.sup & Dt > lim.inf] <- 0
 nuevas.muestras.inicial<-read.table("Data/NuevasMuestras.txt", header=FALSE)
 nuevas.muestras<-as.matrix(nuevas.muestras.inicial)
 
+
+
+
 # Andrés ------
 
 nuevas.muestras <- read.table("Data/NuevasMuestras.txt", header=FALSE)
@@ -491,6 +499,8 @@ write.table(com.nueva,file = "Data/comnueva.txt")
 
 com.nueva <- read.table("Data/comnueva.txt", header = TRUE)
 # ------------------
+
+
 
 #se traduce a 0 y 1 de acuerdo a si hubo apariciones o no
 
@@ -529,9 +539,9 @@ nuevas.muestras.A
   alfa <- 0.05
   indic <-  indep > qchisq(1-alfa, nlevels(group)-1, ncp=0, lower.tail = TRUE, log.p = FALSE)
 
-  com.nueva.sel <- subset(com.nueva.pa,select = which(indic==1, arr.ind = T))
+  A <- subset(com.nueva.pa,select = which(indic==1, arr.ind = T))
   
-  #nuevas.muestras.A == com.nueva.sel con este procedimiento son iguales.
+  #nuevas.muestras.A == A con este procedimiento son iguales.
   
   
 
@@ -551,7 +561,7 @@ matriz.A
 
 # Andrés ------------------------------
 
-com.nueva.sel.sum <- colSums(com.nueva.sel)
+A <- colSums(A)
 
 
 #  com.nueva.sel.sum == matriz.A son iguales
@@ -571,7 +581,7 @@ estimacion.ambientes
 
 # Andrés --------------------------------------------
 
-est.env <- com.nueva.sel.sum %*% Dt
+est.env <- A %*% Dt
 
 colnames(est.env)[apply(est.env, 1, which.max)]
 
@@ -618,6 +628,13 @@ nombre.filas.donde.aparecen.indicadores
 
 numero.filas.indicadores<-length(matriz.de.apariciones.de.indicadores.donde.aparecen.indicadores[,1])
 
+
+# Andrés ---------------------------------
+
+com.pa.indic[rowSums(com.pa.indic)>0,] 
+
+# ----------------------------------------
+
 # Calculo los cortes en esa matriz
 
 cortes.inicial.indicadores<-rep(0,numero.ambientes+1)
@@ -647,8 +664,26 @@ resultado.solo.donde.aparecen.indicadoras
 resultado<-resultado.solo.donde.aparecen.indicadoras
 resultado
 
+# Andrés -------------------------------------------------
+
+D <- pcond.indic - 1/n
+
+R <- as.matrix(com.pa.indic[rowSums(com.pa.indic)>0,]) %*% t(D)
+
+colnames(R)[apply(est.env, 1, which.max)]
+
+indic.sp <- select_indicator_species(com,group)
+
+R <- rep(0,nrow(com))
+
+for(i in 1: nrow(com)){
+  
+  R[i] <- identify_env(com,com[i,],indic.sp)
+  
+}
 
 
+# -----------------------------------------------------------------
 
 # Matriz que tiene un 1 si coincide la predicci?n con el ambiente, un 0 si no decide y un -1 si no coincide
 

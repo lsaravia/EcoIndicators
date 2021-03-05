@@ -14,6 +14,8 @@
 #' @export
 #'
 #' @examples
+
+
 identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   
   require(vegan)
@@ -39,26 +41,6 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   # Creamos la matriz de coeficientes (D en el paper)
   # ----------------------------------------------------
 
-  # Revisar este test:
-  
-  # En el programa orginal el límite inferior y superior se calcula con 
-  
-  # lim.sup<-(1/numero.ambientes)+qnorm(1-nivel.signific.puntual)*sqrt(((1/numero.ambientes)*(1-(1/numero.ambientes)))/sum(matriz.de.apariciones[,h]))
-  # lim.inf<-(1/numero.ambientes)-qnorm(1-nivel.signific.puntual)*sqrt(((1/numero.ambientes)*(1-(1/numero.ambientes)))/sum(matriz.de.apariciones[,h]))
-  
-  # que está dividido al final por: sum(matriz.de.apariciones[,h]),
-  
-  # yo le veo el problema de que toma 'h' del entorno, entonces no sabemos qué valor toma
-  # y que da como resultado un escalar que se resta luego a todas las especies indicadoras por igual.
-  
-  # Entiendo que tiene que haber un límite inferior y superior para cada especie indicadora. 
-  # Eso se obtiene en la siguiente cuenta dividiendo por el vector 
-  # colSums(com.pa.indic)
-  # que es la suma de las columnas (las especies) del subconjunto de especies indicadoras
-  # estandarizada como matriz de presencias y ausencias (com.pa.indic)
-  
-  
-  
   n <- nrow(indicator.species$pcond) # n es el número de ambientes
  
   lim.sup<-(1/n)+qnorm(1-alfa)*sqrt(((1/n)*(1-(1/n)))/colSums(com.pa.indic))
@@ -116,7 +98,7 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   
   select.est.env <- colnames(est.env)[apply(est.env, 1, which.max)]
   
-  return(list(Environment = select.est.env))
-  
+  #return(list(Environment = select.est.env))
+  return(select.est.env)
   
 }
