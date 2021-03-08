@@ -293,10 +293,16 @@ independencia
 # sum((obs-esp)^2/esp)
 
 
-obs <- aggregate(com.pa,by=list(group),sum)[,-1]
-esp <- colSums(com.pa)/nlevels(group)
+obs <- p.cond
+esp <- 1/nlevels(group)
 
 indep <- colSums(sweep((sweep(obs,2,esp,'-')^2),2,esp,'/'))
+
+observed <- aggregate(com.pa,by=list(group),sum)[,-1]
+expected <- colSums(com.pa)/nlevels(group)
+
+
+indep <- colSums(sweep((sweep(observed,2,expected,'-')^2),2,expected,'/'))
 
 # -------------------------------------------------
 
