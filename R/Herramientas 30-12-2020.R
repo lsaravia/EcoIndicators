@@ -849,10 +849,27 @@ columnas.con.bicho<-function(k){
 
 #Ejemplo
 columnas.con.bicho(6)
+columnas.con.bicho(20)
 
-#Funci?n que toma un par?metro f?sico-qu?mico t y una especie o familia k y devuelve una matriz con las apariciones de la especie con el valor
-#del qu?mico asociado. En le primer columna aparece el valor del qu?mico (ordenados de menor a mayor)
-#y en la segunda la cantidad de apariciones de la eapecie para ese valor del qu?mico t
+# Andrés------------------------------------
+# esta función no se usa después
+
+columnas.con.bicho.a(com,sp){
+  
+  
+  
+}
+com[com[,6]>0,6]
+
+n.col.indic <- which(com[com[,6]>0,6], arr.ind = T)
+
+# ------------------------------------------
+
+# Funci?n que toma un par?metro f?sico-qu?mico t y una especie o familia k y 
+# devuelve una matriz con las apariciones de la especie con el valor
+# del qu?mico asociado. En le primer columna aparece el valor del qu?mico 
+# (ordenados de menor a mayor) y en la segunda la cantidad de apariciones de 
+# la eapecie para ese valor del qu?mico t
 
 
 
@@ -877,10 +894,22 @@ quim.bich<-function(t,k){
 #Ejemplo
 quim.bich(1,4)
 
+# Andrés -----------------------------
+# Esta función no se usa despúes
+
+head(quim.bich(1,16))
+
+# -----------------------------------
+
+# Funci?n que toma un par?metro f?sico-qu?mico t y una especie o familia k y 
+# devuelve una matriz con las apariciones de la especie con el valor
+# del qu?mico asociado. En le primer columna aparece el valor del qu?mico 
+# y en la segunda la cantidad de apariciones de 
+# la eapecie para ese valor del qu?mico t
 
 
-
-# Lo mismo que antes pero sin ordenar de menor a mayor el qu?mico (en el orden en que aparecen en la base de datos)
+# Lo mismo que antes pero sin ordenar de menor a mayor el qu?mico (en el orden en que 
+# aparecen en la base de datos)
 
 quim.bich.sin.ordenar<-function(t,k){
   m.inicial<-cbind(rep(0,sum(numeros.completos[,k]>0)),rep(0,sum(numeros.completos[,k]>0)))
@@ -900,12 +929,29 @@ quim.bich.sin.ordenar<-function(t,k){
 #Ejemplo
 quim.bich.sin.ordenar(1,4)
 
+# Andrés------------------------------------
+# Esta función se usa en la función BiyQui
+head(quim.bich.sin.ordenar(1,16))
+
+
+fq <- c(2,3,4) ; sp <- 1
+cbind(env[com[,sp]>0,fq],com[com[,sp]>0,sp])
+
+
+# ---------------------------------------
+
+
+
+
 #Defino un vector con los qu?micos que quiero analizar
 
 qu<-c(1,2)
 
 
-# Funci?n que dada la especie de la columna "k" devuelve los valores de los qu?micos elegidos en las muestras en las que hay apariciones
+
+
+# Funci?n que dada la especie de la columna "k" devuelve los valores de los 
+# qu?micos elegidos en las muestras en las que hay apariciones
 
 BiyQui<-function(h){
   nn.inicial<-quim.bich.sin.ordenar(qu[1],h)[,1]
@@ -918,12 +964,25 @@ BiyQui<-function(h){
 #Ejemplo
 BiyQui(4)
 
+# Andrés -----------------------------------------------------
+# Esta función se usa luego en apariciones.cubitos
+head(BiyQui(4))
+
+fq <- c(2,3) ; sp <- 1
+env[com[,sp]>0,fq]
+
+
+
+# ------------------------------------------------------------
+
+
 
 # Se calculan los "cortes" para los "cubos" de los qu?micos 
-# El m?nimo es el valor m?nimo del qu?mico en todas las muestras y lo mismo con el m?ximo 
+# El m?nimo es el valor m?nimo del qu?mico en todas las muestras 
+#y lo mismo con el m?ximo 
 # Se define el n?mero de cortes y la cantidad de decimales a usar
-
-
+l <- 1
+j <- 2
 numero.de.cortes<-2
 
 decimales.de.los.cortes<-2
@@ -932,7 +991,8 @@ cortes<-function(j){
   q<-numeros.completos[,j]
   mi<-c(min(numeros.completos[,j]),max(numeros.completos[,j]))
   cort.inicial<-c(min(mi))
-  for(l in 1:numero.de.cortes){cort.inicial<-c(cort.inicial,min(mi)+(((max(mi)-min(mi))/numero.de.cortes)*l))}
+  for(l in 1:numero.de.cortes){cort.inicial<-c(cort.inicial,min(mi)+
+                                                 (((max(mi)-min(mi))/numero.de.cortes)*l))}
   cort<-cort<-round(cort.inicial, decimales.de.los.cortes)
   return(cort)
 }
@@ -943,6 +1003,25 @@ for(k in 1:n.fq){
 matriz.cortes<-matriz.cortes.inicial[,-1]
 matriz.cortes
 
+# Andrés ------------------------------------------
+# Se usa en matriz.cubitos
+# Es una matriz de todas las variables físico químicas en la que
+# se divide el rango de la variable por la resolución
+
+fq <- c(2,3)
+resolution <- 4
+
+myseq <- function(x, resolution, dec=3){
+  res <- seq(from = min(x), to = max(x), 
+             length.out = resolution)
+  return(round(res,dec))
+}
+
+hypercube <-apply(env[,-1], 2, myseq,resolution)
+
+# --------------------------------------------
+
+
 
 
 #Se seleccionan las columnas de la matriz anterior correspondiente a los qu?micos elegidos
@@ -952,16 +1031,28 @@ for(t in 1:length(qu)){matriz.cubitos.inicial<-cbind(matriz.cubitos.inicial,matr
 matriz.cubitos<-matriz.cubitos.inicial[,-1]
 matriz.cubitos
 
+
+# Andrés ----------------------------------------
+
+
+hypercube[,fq]
+ 
+
+
+# ------------------------------------------------
+
 ############################################################################################
 # La matriz anterior "matriz.cubitos" puede sustituirse por una matriz elegida por el usuario
 #############################################################################################
 
-# Porcentaje de mediciones de los qu?micos que caen en cada uno de los  cubitos discriminados por ambiente???????????????????????????????????
+# Porcentaje de mediciones de los qu?micos que caen en cada uno de los  cubitos 
+# discriminados por ambiente???????????????????????????????????
 
-#Estudio de la distribuci?n de cada muestra en los cubos de los qu?micos elegidos
+# Estudio de la distribuci?n de cada muestra en los cubos de los qu?micos elegidos
 
-#Matriz que numera cada cubo, representado por las (n?mero de qu?micos elegidos)^(n?mero de cortes) combinaciones de
-# longitud "n?mero de qu?micos elegidos" formada por los n?meros del 1 al "n?mero de cortes"
+# Matriz que numera cada cubo, representado por las 
+# (número de químicos elegidos)^(número de cortes) combinaciones
+# de longitud "n?mero de qu?micos elegidos" formada por los n?meros del 1 al "n?mero de cortes"
 
 library(gtools)
 prueba.cubito.inicial<-c(1:numero.de.cortes)
@@ -973,9 +1064,10 @@ prueba.cubito
 
 
 # N?mero  (tomando todos los ambientes) de apariciones de la especie "b" en cada cubito 
-# Defino una funci?n a"pariciones.cubitos(b)" que da el cubito en el que se encuentra de cada aparici?n de la especie 
+# Defino una funci?n a"pariciones.cubitos(b)" que da el cubito en el que se encuentra 
+# de cada aparici?n de la especie 
 
-
+b <- 1
 apariciones.cubitos<-function(b){
   apariciones.cubitos.inicial<-matrix(0,1,length(BiyQui(b)[,1]))
   for(n in 1:length(BiyQui(b)[,1])){
@@ -990,7 +1082,10 @@ apariciones.cubitos<-function(b){
 }
 
 #Ejemplo
-apariciones.cubitos(4)
+apariciones.cubitos(17)
+
+
+
 
 #Funci?n que indica cuantas veces apareci? la especie "b" en cada cubo
 
@@ -1027,7 +1122,7 @@ matriz.apariciones.en.cada.cubo.todas.las.especies
 #Se exporta la matriz calculada
 write.csv(matriz.apariciones.en.cada.cubo.todas.las.especies, file="matriz.apariciones.en.cada.cubo.todas.las.especies.csv",row.names = F)
 #Se lee la matriz calculada
-matriz.apariciones.en.cada.cubo.todas.las.especies.final<-read.table("matriz.apariciones.en.cada.cubo.todas.las.especies.txt", header=FALSE)
+matriz.apariciones.en.cada.cubo.todas.las.especies.final<-read.table("../Herramientas/30-12/matriz.apariciones.en.cada.cubo.todas.las.especies.txt", header=FALSE)
 matriz.apariciones.en.cada.cubo.todas.las.especies.final.final<-as.matrix(matriz.apariciones.en.cada.cubo.todas.las.especies.final)
 matriz.apariciones.en.cada.cubo.todas.las.especies.final.final
 
@@ -1203,8 +1298,10 @@ proba.de.estar.en.tal.cubo.sabiendo.que.aparecieron.tales.especies(c(4,7))
 
 
 #Matriz que tiene el cubo al que pertenece cada muestra en su primer columna
-#y la probabilidad de estar en cada cubo en las siguientes columnas (en esa muestra aparecen varias especies y todas ellas
-# juntas aparecen con cierta probabbilidad en cada cubo)
+#y la probabilidad de estar en cada cubo en las siguientes columnas (en esa muestra
+#aparecen varias especies y todas ellas  juntas aparecen con cierta probabbilidad 
+#en cada cubo)
+
 ################################################
 ##IMPORTANTE: Este paso tambi?n insume tiempo ##
 ###############################################
@@ -1216,9 +1313,9 @@ c.d.c.m<-as.matrix(cubito.de.cada.muestra)
 predicciones<-cbind(c.d.c.m,predicciones.inicial)
 predicciones
 
-write.csv(predicciones, file="predicciones.csv",row.names = F)
+write.csv(predicciones, file="../Herramientas/30-12/predicciones.csv",row.names = F)
 
-predicciones.final<-read.table("predicciones.txt", header=FALSE)
+predicciones.final<-read.table("../Herramientas/30-12/predicciones.txt", header=FALSE)
 predicciones.final.final<-as.matrix(predicciones.final)
 predicciones.final.final
 
@@ -1258,20 +1355,22 @@ del.numero.del.cubito.a.sus.parametros(3)
 ######################################################################################################
 ######################################################################################################
 #Funci?n que dada una cantidad de especies E1, E2, ..., En 
-#devuelve en que cubos aparecen todas al mismo tiempo (es decir, existe una muestra, que est? en un 
-# determinado cubo, donde aparecen todas juntas ) e indica entre que par?metros se mueve cada cubo
+#devuelve en que cubos aparecen todas al mismo tiempo (es decir, existe una muestra
+#, que est? en un 
+# determinado cubo, donde aparecen todas juntas ) e indica entre que par?metros 
+#se mueve cada cubo
 ######################################################################################################
 ######################################################################################################
 
 
-par?metros.en.donde.aparecen.todas<-function(g){
+parametros.en.donde.aparecen.todas<-function(g){
   for(f in 1:length(cubos.en.donde.aparecen.todas(g))){print(del.numero.del.cubito.a.sus.parametros(cubos.en.donde.aparecen.todas(g)[f]))}
 }
 
 #Ejemplo
-par?metros.en.donde.aparecen.todas(c(4,6))
-par?metros.en.donde.aparecen.todas(c(5,6))
-par?metros.en.donde.aparecen.todas(c(4))
+parametros.en.donde.aparecen.todas(c(4,6))
+parametros.en.donde.aparecen.todas(c(5,6))
+parametros.en.donde.aparecen.todas(c(4))
 
 
 
