@@ -1,11 +1,11 @@
-#' Title Converts a matrix of numeric quantitative environemtal vectors as a 
+#' Converts a vector or matrix of quantitative environemtal data as a 
 #' factorized version of a desired resolution
 #'
 #' @param env A matrix or data.frame of quantitative environmental data
 #' @param resolution Number of intervals in which divide the range of each 
 #' variable
 #'
-#' @return A data.frame 
+#' @return 
 #' @export
 #'
 #' @examples

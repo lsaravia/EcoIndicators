@@ -1,9 +1,10 @@
-
-#' Title
+#' A partir de un vector o matriz de datos ambientales
+#' devuelve la presencia de una especie en hipercubos de una resolución definida
 #'
-#' @param env 
-#' @param com 
-#' @param resolution 
+#' @param env Vector or matrix of quantitative environmental data
+#' @param com A vector of abundance of a species registered in the same 
+#' samples as environmetal data
+#' @param resolution To divide the range of each environmental variable
 #'
 #' @return
 #' @export
@@ -34,8 +35,6 @@ sp_hypercube <- function(env,com,resolution){
     sp.hypercube <- ftable(env.factorized[com.pa==1,1:ncol(env.factorized)])
     sp.hypercube
   }
-  
-  
   
   }
 
