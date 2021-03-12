@@ -1008,13 +1008,13 @@ matriz.cortes
 # Es una matriz de todas las variables físico químicas en la que
 # se divide el rango de la variable por la resolución
 
-fq <- c(2,3)
-resolution <- 4
+fq <- c(1,2)
+resolution <- 3
 
 myseq <- function(x, resolution, dec=3){
-  res <- seq(from = min(x), to = max(x), 
+  result <- seq(from = min(x), to = max(x), 
              length.out = resolution)
-  return(round(res,dec))
+  return(round(result,dec))
 }
 
 hypercube <-apply(env[,-1], 2, myseq,resolution)
@@ -1064,10 +1064,9 @@ prueba.cubito
 
 
 # N?mero  (tomando todos los ambientes) de apariciones de la especie "b" en cada cubito 
-# Defino una funci?n a"pariciones.cubitos(b)" que da el cubito en el que se encuentra 
+# Defino una función "apariciones.cubitos(b)" que da el cubito en el que se encuentra 
 # de cada aparici?n de la especie 
 
-b <- 1
 apariciones.cubitos<-function(b){
   apariciones.cubitos.inicial<-matrix(0,1,length(BiyQui(b)[,1]))
   for(n in 1:length(BiyQui(b)[,1])){
@@ -1084,8 +1083,30 @@ apariciones.cubitos<-function(b){
 #Ejemplo
 apariciones.cubitos(17)
 
+# Andrés -------------------------------------------------------------
 
 
+fq <- c(1,2) ; sp <- 1
+
+w <- env[com[,sp]>0,fq+1]
+
+for (i in 1:ncol(env)){
+  
+  cut(env[,i],hypercube[,i],include.lowest = TRUE)
+  
+}
+
+apply(env[,-1], 2,cut,hypercube,include.lowest=TRUE)
+
+ce.fac <- cut(w$CE,hypercube[,1],include.lowest = TRUE)
+dap.fac <- cut(w$DAP,hypercube[,2],include.lowest = TRUE)
+RM_0.5.fac <- cut(env$RM_0.5,hypercube[,3],include.lowest = TRUE)
+RM_5.10.fac <- cut(env$RM_5.10,hypercube[,4],include.lowest = TRUE)
+
+sp.pa <- decostand(com[,sp],method = "pa")
+table(ce.fac,dap.fac,sp.pa[sp.pa==1] )
+
+# ------------------------------------------------------------------------------
 
 #Funci?n que indica cuantas veces apareci? la especie "b" en cada cubo
 
@@ -1101,7 +1122,9 @@ cantidad.apariciones.en.cada.cubo<-function(x){
 }
 
 #Ejemplo
-cantidad.apariciones.en.cada.cubo(4)
+cantidad.apariciones.en.cada.cubo(16)
+
+
 
 
 # Matriz donde cada fila es la cantidad de apariciones de la especie en cada cubo 
