@@ -21,6 +21,14 @@ as_niche_factor <- function(env,resolution){
   
   # matríz con las divisiones del rango en función de la resolución
   
+  if(is.vector(env)){
+    env.factorized <- cut(env,myseq(env,resolution),include.lowest = TRUE)
+    env.factorized
+  }
+  else{
+    
+  
+  
   hypercube <-apply(env, 2, myseq,resolution)
 
   # Se transforma cada vector parámetros ambientales en un factor con los rangos
@@ -40,7 +48,7 @@ as_niche_factor <- function(env,resolution){
   env.factorized <- env.factorized[,-1]
   colnames(env.factorized) <- colnames(env)
   
-  return(env.factorized)
-    
+  env.factorized
+  }
 }
 

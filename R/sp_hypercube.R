@@ -26,9 +26,16 @@ sp_hypercube <- function(env,com,resolution){
   
   env.factorized <- as_niche_factor(env,resolution)
   
-  sp.hypercube <- ftable(env.factorized[com.pa==1,1:ncol(env.factorized)])
+  if(is.vector(env)){
+    sp.hypercube <- ftable(env.factorized[com.pa==1])
+    sp.hypercube
+  }
+  else{
+    sp.hypercube <- ftable(env.factorized[com.pa==1,1:ncol(env.factorized)])
+    sp.hypercube
+  }
   
-  return(sp.hypercube)
+  
   
   }
 
