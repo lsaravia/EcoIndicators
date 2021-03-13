@@ -18,11 +18,19 @@ group <- da[,1]
 
 # Plot of probabilities
 #
-indic <- select_indicator_species(com,group,0.005)
+indic <- select_indicator_species(com,group,0.05)
 require(tidyverse)
 pcond <- tibble::rownames_to_column(indic$pcond, var = "Env")
 pcond <- pcond %>% pivot_longer(!Env, names_to = "Species", values_to = "Prob")
+
+# Total plot of probabilities
+#
 ggplot(pcond,aes(Species,Prob, color=Env)) + geom_point() + theme_bw() + scale_color_viridis_d() + theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+
+# Plot of selected indicator species
+#
+pcond %>% filter(Species %in% indic$names) %>% ggplot(aes(Species,Prob, color=Env)) + geom_point() + theme_bw() + scale_color_viridis_d() + theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+
 
 newcom <- read.delim("Data/comnueva.txt")
 
