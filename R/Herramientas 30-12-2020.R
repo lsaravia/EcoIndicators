@@ -945,7 +945,7 @@ cbind(env[com[,sp]>0,fq],com[com[,sp]>0,sp])
 
 #Defino un vector con los qu?micos que quiero analizar
 
-qu<-c(1,2)
+qu<-c(2,3)
 
 
 
@@ -969,7 +969,9 @@ BiyQui(4)
 head(BiyQui(4))
 
 fq <- c(2,3) ; sp <- 1
-env[com[,sp]>0,fq]
+
+env[com[,sp]>0,fq] %>% head
+
 
 
 
@@ -1085,19 +1087,6 @@ apariciones.cubitos(17)
 
 # Andrés -------------------------------------------------------------
 
-
-fq <- c(1,2) ; sp <- 1
-
-w <- env[com[,sp]>0,fq+1]
-
-for (i in 1:ncol(env)){
-  
-  cut(env[,i],hypercube[,i],include.lowest = TRUE)
-  
-}
-
-apply(env[,-1], 2,cut,hypercube,include.lowest=TRUE)
-
 ce.fac <- cut(w$CE,hypercube[,1],include.lowest = TRUE)
 dap.fac <- cut(w$DAP,hypercube[,2],include.lowest = TRUE)
 RM_0.5.fac <- cut(env$RM_0.5,hypercube[,3],include.lowest = TRUE)
@@ -1105,6 +1094,7 @@ RM_5.10.fac <- cut(env$RM_5.10,hypercube[,4],include.lowest = TRUE)
 
 sp.pa <- decostand(com[,sp],method = "pa")
 table(ce.fac,dap.fac,sp.pa[sp.pa==1] )
+
 
 # ------------------------------------------------------------------------------
 
@@ -1142,6 +1132,44 @@ for(j in 1:n.biota){
 matriz.apariciones.en.cada.cubo.todas.las.especies<-matriz.apariciones.en.cada.cubo.todas.las.especies.inicial
 matriz.apariciones.en.cada.cubo.todas.las.especies
 
+# Andrés ----------------------------------------------
+
+rhodacaroidea.hyp <- sp_hypercube(env[,c(8,14)],com$rhodacaroidea,4)
+
+library(vcd)
+
+mosaic(as.table(rhodacaroidea.hyp), shade = TRUE)
+mosaic(N~MO, data = as.table(rhodacaroidea.hyp))
+
+
+# Aparece un problema al haber filas y columnas con cero. Vamos a eliminarlas
+# y ver qué pasa.
+
+comm <- com[rowSums(com)>0,colSums(com)>0]
+
+comm.vegdist <- vegdist(comm[-46,], method = "bray")
+
+comm.nmds <- metaMDS(comm[-46,],k=2)
+
+plot(comm.nmds,type  = "text")
+
+comm.kmeans <- kmeans(comm,centers = 3)
+
+comm.hclust <- hclust(vegdist(comm),method = "ave")
+
+plot(comm.hclust)
+cutree(comm.hclust,3)
+
+comm.betadisper <- betadisper(betadiver(comm,method = 1),group = env$Ambiente[rowSums(com)>0])
+
+com.adonis <- adonis(comm~env$Ambiente[rowSums(com)>0])
+
+select_indicator_species(comm,env$Ambiente[rowSums(com)>0])
+select_indicator_species(com,env$Ambiente)
+# -----------------------------------------------------
+
+
+
 #Se exporta la matriz calculada
 write.csv(matriz.apariciones.en.cada.cubo.todas.las.especies, file="matriz.apariciones.en.cada.cubo.todas.las.especies.csv",row.names = F)
 #Se lee la matriz calculada
@@ -1163,6 +1191,9 @@ especies.que.aparecen.en.la.muestra<-function(y){
 #Ejemplo
 especies.que.aparecen.en.la.muestra(8)
 
+
+
+
 # Funci?n que dada una muestra indica los nombres de las especies que aparecen
 
 nombre.de.las.especies.que.aparecen.en.la.muestra<-function(y){
@@ -1176,6 +1207,14 @@ nombre.de.las.especies.que.aparecen.en.la.muestra<-function(y){
 
 #Ejemplo
 nombre.de.las.especies.que.aparecen.en.la.muestra(8)
+
+
+# Andrés .--------------------------------
+
+names(com)[com[8,]>0]
+
+# -----------------------------------------
+
 
 
 #matriz que da las especies que aparecen en cada una de las muestras
@@ -1264,6 +1303,17 @@ aparicion.conjunta<-function(v){
 
 #Ejemplo
 aparicion.conjunta(c(4,7))
+
+
+# Andrés ----------------------------------
+
+
+
+
+
+# -----------------------------------------
+
+
 
 
 

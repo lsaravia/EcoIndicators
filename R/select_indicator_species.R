@@ -33,6 +33,7 @@ select_indicator_species <- function(com,group,alfa=0.05) {
   
   # Agregar warnings y stop 
   # revisando algunas condiciones de los argumentos
+  # Por ejemplo cuando hay filas o columnas con todos ceros
   
   
   # Calcula la matriz de apariciones o de presencia/ausencia
@@ -47,8 +48,6 @@ select_indicator_species <- function(com,group,alfa=0.05) {
   rownames(p.cond) <- levels(group)
   
   # Calcula la matriz de independencia
-  
-  # Si me guío por el paper, 
   
   observed <- aggregate(com.pa,by=list(group),sum)[,-1]
   expected <- colSums(com.pa)/nlevels(group)
