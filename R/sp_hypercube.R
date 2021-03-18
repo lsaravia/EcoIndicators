@@ -12,7 +12,7 @@
 #' @examples
 #' 
 #' 
-sp_hypercube <- function(env,com,resolution){
+sp_hypercube <- function(env,com,resolution=3){
   
   require(vegan)
   

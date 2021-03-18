@@ -1445,6 +1445,17 @@ parametros.en.donde.aparecen.todas(c(4,6))
 parametros.en.donde.aparecen.todas(c(5,6))
 parametros.en.donde.aparecen.todas(c(4))
 
+# Andrés ---------------------------------------------
+# Presencia conjunta de especies en hipercubos de variables ambientales
+
+sp_hypercube(env[,c(7,8,14)],com.pa[,"onychiuridae"] * com.pa[,"isotomidae"]* com.pa[,"eupodoidea"]* com.pa[,"Aporos"],4)
+
+sp_hypercube(env[,c(7,8,14)],com.pa[,"hypogastruridae"] * com.pa[,"crotoniodea"]* com.pa[,"JOVENES"],4)
+
+mosaicplot(as.table(sp_hypercube(env[,c(7,8,14)],com.pa[,"hypogastruridae"] * com.pa[,"crotoniodea"]* com.pa[,"JOVENES"],4)))
+
+# ----------------------------------------------------------------------------
+
 
 
  ##################################################################################################

@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @examples
-as_niche_factor <- function(env,resolution){
+as_niche_factor <- function(env,resolution=3){
   
  
   
