@@ -25,22 +25,19 @@
 
 # Defino la matiz "numeros.completos" que contiene solo los datos (de los qu?micos y de las especies) pero no los nombres
 # de las filas (los ambientes) ni las columnas (los par?metros f?sico-qu?micos y las especies)
-<<<<<<< HEAD
 
 
-# Original
  Data<-read.table("Data/data.txt", header=FALSE)
  numeros.completos<-as.matrix(Data)
  
-#Andres -------------------
+#Andres ---------------------------------------------------
 com <- read.table("Data/com.txt", header = TRUE,dec = ".")
 env <- read.table("Data/env.txt",header = T, dec = ".")
 group <-  as.factor(env$Ambiente)
-# ----------------------
+# ---------------------------------------------------------
 
 
 #creo los nombres de las filas (los ambientes)
-#Original
  nombrefilas1<-read.table("Data/Nombre filas.txt", header=FALSE)
  nombrefilas<-t(nombrefilas1)
  Ambientes<-nombrefilas
@@ -49,7 +46,6 @@ group <-  as.factor(env$Ambiente)
 
 #creo los nombres de las columnas (que son los par?metros f?sico-qu?micos y las especiess)
 
-#Original
  nombrecolumnas1<-read.table("Data/Nombre columnas.txt", header=FALSE)
  nombrecolumnas2<-t(nombrecolumnas1)
  nombrecolumnas<-t(nombrecolumnas2)
@@ -67,7 +63,6 @@ Ambientes<-nombrefilas
 nombrecolumnas1<-read.table("Data/Nombre columnas.txt", header=FALSE)
 nombrecolumnas2<-t(nombrecolumnas1)
 nombrecolumnas<-t(nombrecolumnas2)
-#>>>>>>> 8209edafec7259b3447448f024c782a5ac822dd2
 
 # Agrego nombre de filas y columnas a la matriz "n?meros.completos"
 colnames(numeros.completos)<-nombrecolumnas
@@ -123,9 +118,6 @@ biota
 
 # N?meros que se van a necesitar
 
-
-
-
 #Original
 numero.filas<-length(numeros[,1])
 numero.filas
@@ -141,7 +133,6 @@ n.col <- ncol(com)
 
 
 #Se distinguen los ambientes en la matriz
-
 
 niveles.ambientes.2<-c(Ambientes[1])
 cont<-1
@@ -163,15 +154,6 @@ for(i in 1:numero.ambientes){cortes.inicial[i+1]<-(sum(Ambientes==niveles.ambien
 cortes<-cortes.inicial
 cortes
 
-
-
-
-
-
-
-
-
-
 #Se traduce la matriz "n?meros" a ceros y unos. Se crea la "matriz.de.apariciones"
 #matriz que tiene 0 o 1 de acuerdo a si hubo o no apariciones del especimen en la muestra (en el paper la matriz "E")
 
@@ -187,10 +169,9 @@ rownames(matriz.de.apariciones)<-Ambientes
 matriz.de.apariciones
 
 #Andrés ----------------------------------
+
 library(vegan)
 com.pa <- decostand(com,method = "pa")
-
-#com.pa == matriz.de.apariciones
 
 # ---------------------------------------
 
@@ -209,7 +190,6 @@ matriz.de.probabilid.condicional
 
 p.cond <- sweep(aggregate(com.pa,by=list(group),sum)[,-1],2,colSums(com.pa),'/')
 
-
 # --------------------------------------------------------------------------------
 
 #Vector de apariciones totales. Muestraeil n?mero total de muestras en las que apareci? cada especie
@@ -220,8 +200,7 @@ vectores.de.apariciones.totales<-vectores.de.apariciones.totales.inicial
 vectores.de.apariciones.totales 
 
 # Andrés ------------------
-# directamente es == 
-  
+
   colSums(com.pa)
 # ---------------------------------
 
@@ -243,7 +222,7 @@ abline(h=1)
 text(1:length(vectores.de.apariciones.totales), 1.2, vectores.de.apariciones.totales)
 
 
-# Andrés
+# Andrés --------------------------------------------------------------------------
 par(mfrow=c(1,1))
 
 plot(1:length(p.cond[1,]), p.cond[1,], 
@@ -257,13 +236,12 @@ abline(h=1/nlevels(group))
 abline(h=1)
 text(1:length(colSums(com.pa)), 1.2, colSums(com.pa))
 
-
+# ----------------------------------------------------------------------------------
 
 
 
 
 # Selecci?n de indicadores
-
 
 #se elije el nivel de significaci?n del test
 nivel.signific.independencia<-0.05
@@ -283,24 +261,9 @@ independencia<-independencia.inicial
 independencia
 
 # Andrés ----------------------------------------
-# i <- 1
-# obs <- tapply(matriz.de.apariciones[,i],ambientes.como.factores,sum)
-# sum(((tapply(matriz.de.apariciones[,i],ambientes.como.factores,sum)-(vectores.de.apariciones.totales[i]/numero.ambientes))^2)/(vectores.de.apariciones.totales[i]/numero.ambientes))
-# 
-# obs <- tapply(matriz.de.apariciones[,i],ambientes.como.factores,sum)
-# esp <- vectores.de.apariciones.totales[i]/numero.ambientes
-# 
-# sum((obs-esp)^2/esp)
-
-
-obs <- p.cond
-esp <- 1/nlevels(group)
-
-indep <- colSums(sweep((sweep(obs,2,esp,'-')^2),2,esp,'/'))
 
 observed <- aggregate(com.pa,by=list(group),sum)[,-1]
 expected <- colSums(com.pa)/nlevels(group)
-
 
 indep <- colSums(sweep((sweep(observed,2,expected,'-')^2),2,expected,'/'))
 
@@ -448,16 +411,10 @@ matriz.de.coeficientes
 
 alfa2 <- 0.05
 
-# en la fórmula anterior el límite inferior y superior se calcula dividiendo por sum(matriz.de.apariciones[,h])
-# y el h no está definido, porque h quedó en memoria igual a 1, calculó la suma de la primer columna.
-
-# se espera que haya un valor de lim.sup y lim.inf para cada especie indicadora o para todas?
-
 n <- nlevels(group)
 
 lim.sup<-(1/n)+qnorm(1-alfa2)*sqrt(((1/n)*(1-(1/n)))/colSums(com.pa.indic))
 lim.inf<-(1/n)-qnorm(1-alfa2)*sqrt(((1/n)*(1-(1/n)))/colSums(com.pa.indic))
-
 
 D <- p.cond.indic
 
@@ -525,15 +482,10 @@ com.nueva.pa <- decostand(com.nueva,method="pa")
 # ---------------------------
 
 
-
-
-
-
 ## Nos quedamos solo con las especies indicadoras
 
 nuevas.muestras.A<-nuevas.muestras[,posicion.de.indicadores+n.fq]
 nuevas.muestras.A
-
 
 
 # Andrés ---------------------
@@ -554,9 +506,6 @@ nuevas.muestras.A
 # ---------------------------
   
   
-  
-  
-
 #Se suman las columnas de la matriz anterior
 
 matriz.A.inicial<-matrix(0,1,length(nuevas.muestras.A[1,]))
@@ -600,13 +549,6 @@ colnames(est.env)[apply(est.env, 1, which.max)]
 # Puesta a prueba del algoritmo (usando la base de datos existente)
 ############################################################################################################################
 ############################################################################################################################
-
-
-
-
-
-
-
 
 
 
@@ -680,6 +622,8 @@ colnames(R)[apply(est.env, 1, which.max)]
 
 indic.sp <- select_indicator_species(com,group)
 
+
+
 R <- rep(0,nrow(com))
 
 for(i in 1: nrow(com)){
@@ -687,7 +631,7 @@ for(i in 1: nrow(com)){
   R[i] <- identify_env(com,com[i,],indic.sp)
   
 }
-
+R
 
 # -----------------------------------------------------------------
 
@@ -786,6 +730,35 @@ for(e in 1:hasta.donde){
   porcentaje.pifiadas.con.ene.muestras[e]<-sum(errores.de.a.ene.n)/numero.filas.indicadores
   
 }
+
+# Andrés --------------------------
+
+# Aplico la función identify_env a subconjuntos de la comunidad del mismo 
+# ambiente, sorteando submuestras de 3 muestras
+
+com.AG <- com[env$Ambiente=="AG",]
+com.CG <- com[env$Ambiente=="CG",]
+com.NG <- com[env$Ambiente=="NG",]  
+
+veces <- 200
+R <- rep(0,veces)
+n <- 5
+
+indic.sp <- select_indicator_species(com,env$Ambiente)
+
+for(i in 1:veces){
+  
+  R[i] <- identify_env(com,com.CG[sample(nrow(com.CG),size = n,replace = TRUE),],indic.sp)
+  
+}
+table(R=="CG")
+
+
+
+
+
+# ---------------------------------
+
 
 
 porcentaje.aciertos.con.ene.muestras
@@ -973,8 +946,6 @@ fq <- c(2,3) ; sp <- 1
 env[com[,sp]>0,fq] %>% head
 
 
-
-
 # ------------------------------------------------------------
 
 
@@ -1132,40 +1103,7 @@ for(j in 1:n.biota){
 matriz.apariciones.en.cada.cubo.todas.las.especies<-matriz.apariciones.en.cada.cubo.todas.las.especies.inicial
 matriz.apariciones.en.cada.cubo.todas.las.especies
 
-# Andrés ----------------------------------------------
 
-rhodacaroidea.hyp <- sp_hypercube(env[,c(8,14)],com$rhodacaroidea,4)
-
-library(vcd)
-
-mosaic(as.table(rhodacaroidea.hyp), shade = TRUE)
-mosaic(N~MO, data = as.table(rhodacaroidea.hyp))
-
-
-# Aparece un problema al haber filas y columnas con cero. Vamos a eliminarlas
-# y ver qué pasa.
-
-comm <- com[rowSums(com)>0,colSums(com)>0]
-
-comm.vegdist <- vegdist(comm[-46,], method = "bray")
-
-comm.nmds <- metaMDS(comm[-46,],k=2)
-
-plot(comm.nmds,type  = "text")
-
-comm.kmeans <- kmeans(comm,centers = 3)
-
-comm.hclust <- hclust(vegdist(comm),method = "ave")
-
-plot(comm.hclust)
-cutree(comm.hclust,3)
-
-comm.betadisper <- betadisper(betadiver(comm,method = 1),group = env$Ambiente[rowSums(com)>0])
-
-com.adonis <- adonis(comm~env$Ambiente[rowSums(com)>0])
-
-select_indicator_species(comm,env$Ambiente[rowSums(com)>0])
-select_indicator_species(com,env$Ambiente)
 # -----------------------------------------------------
 
 
@@ -1354,6 +1292,14 @@ aparicion.conjunta.en.cada.cubo<-function(w){
 #Ejemplo
 aparicion.conjunta.en.cada.cubo(c(4,7))
 
+# Andrés --------------------------------
+# la aparición conjunta se puede calcular multiplicando los vectores de presen-
+# cia y ausencia de cada especie. Y luego mandarlo a la función sp_hypercube
+
+sp_hypercube(env[,c(7,8)],com[,4]*com[,7])
+
+# ----------------------------------------
+
 
 #Funci?n que dada una cantidad de especies E1, E2, ..., En 
 #devuelve la probabilidad de estar en el cubo Cj sabiendo que aparecieron esas especies
@@ -1392,8 +1338,9 @@ predicciones.final<-read.table("../Herramientas/30-12/predicciones.txt", header=
 predicciones.final.final<-as.matrix(predicciones.final)
 predicciones.final.final
 
-#Matriz que da el n?mero de posibles cubos en los que aparecen todas las especies que hay en esa muestra en la primer columna 
-#y la cantidad de especies que aparecieron en esa muestra en la segunda columna 
+# Matriz que da el n?mero de posibles cubos en los que aparecen todas las 
+# especies que hay en esa muestra en la primer columna 
+# y la cantidad de especies que aparecieron en esa muestra en la segunda columna 
 
 
 numero.de.posibles.cubos.en.cada.muestra.inicial<-matrix(0,length(numeros.completos[,1]),2)
@@ -1461,17 +1408,66 @@ mosaicplot(as.table(sp_hypercube(env[,c(7,8,14)],com.pa[,"hypogastruridae"] * co
  ##################################################################################################
 
 
+# Andrés ----------------------------------------------
+
+rhodacaroidea.hyp <- sp_hypercube(env[,c(8,14)],com$rhodacaroidea,4)
+
+library(vcd)
+
+mosaic(as.table(rhodacaroidea.hyp), shade = TRUE)
+mosaic(N~MO, data = as.table(rhodacaroidea.hyp))
+
+
+# Aparece un problema al haber filas y columnas con cero. Vamos a eliminarlas
+# y ver qué pasa.
+
+comm <- com[-46,-41]
+comm <- com[rowSums(com)>0,colSums(com)>0]
+
+comm.vegdist <- vegdist(comm, method = "bray")
+
+comm.nmds <- metaMDS(comm,k=2)
+
+plot(comm.nmds,type  = "text")
+
+comm.kmeans <- kmeans(comm,centers = 3)
+
+comm.hclust <- hclust(vegdist(comm),method = "com")
+
+plot(comm.hclust)
+cutree(comm.hclust,3)
+
+comm.betadisper <- betadisper(betadiver(comm,method = 1),group = env$Ambiente[rowSums(com)>0])
+plot(comm.betadisper)
+
+permutest(comm.betadisper)
+TukeyHSD(comm.betadisper)
+
+com.adonis <- adonis(comm~env$Ambiente[rowSums(com)>0])
 
 
 
+select_indicator_species(comm,env$Ambiente[rowSums(com)>0])
+select_indicator_species(com,env$Ambiente)
 
 
+aves <- read.table("/home/andres/Documentos/Unlu/EcoIII/2020/TP2/aves2020.txt",header = T)
+select_indicator_species(aves[,-(1:2)],aves$Sitio)
 
+espindic(aves[,-(1:2)],aves$Sitio)
 
+veg <- read.table("/home/andres/Documentos/Unlu/EcoIII/2020/TP3/transectas.txt",header = T,dec = ",")
 
+veg.kmeans <-  kmeans(veg[,-1],3)
 
+veg.hclust <- hclust(vegdist(veg[,-1]),method = "ave")
+plot(veg.hclust)
 
+select_indicator_species(decostand(veg[,-1],method = "total",MARGIN = 2),cutree(veg.hclust,3),0.05)
 
+espindic(decostand(veg[,-1],method = "total",MARGIN = 2),cutree(veg.hclust,3))
+
+help("decostand")
 
 
 

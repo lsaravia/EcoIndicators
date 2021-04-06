@@ -99,6 +99,6 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   select.est.env <- colnames(est.env)[apply(est.env, 1, which.max)]
   
   #return(list(Environment = select.est.env))
-  return(select.est.env)
+  select.est.env
   
 }
