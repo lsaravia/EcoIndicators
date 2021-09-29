@@ -13,8 +13,16 @@
 #' @return The environment.
 #' @export
 #'
-#' @examples
-
+#' @examples #' 
+#' 
+#' #' da <- read.delim("Data/data.txt")
+#' 
+#' # Select community (species) data
+#' 
+#' com <- da[,18:50]
+#' 
+#' newsamples <- 1
+#' 
 
 identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   

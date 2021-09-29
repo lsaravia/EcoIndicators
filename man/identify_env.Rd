@@ -23,3 +23,15 @@ The environment.
 This function use the result of `select_indicator.species` to identify a new 
 set of samples of the community
 }
+\examples{
+#' 
+
+#' da <- read.delim("Data/data.txt")
+
+# Select community (species) data
+
+com <- da[,18:50]
+
+newsamples <- 1
+
+}

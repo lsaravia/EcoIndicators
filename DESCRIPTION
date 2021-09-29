@@ -2,4 +2,5 @@ Package: Ecoindicators
 Type: Package
 Title: An algorithm for the identification of indicator taxonomic units and their use in analyses of ecosystem state
 Version: 0.0.1.0
+Encoding: UTF-8
 RoxygenNote: 7.1.2

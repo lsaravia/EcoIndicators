@@ -5,24 +5,45 @@
 \title{A partir de un vector o matriz de datos ambientales
 devuelve la presencia de una especie en hipercubos de una resolución definida}
 \usage{
-sp_hypercube(env, com, resolution = 3)
+sp_hypercube(env, sp, resolution = 3)
 }
 \arguments{
 \item{env}{Vector or matrix of quantitative environmental data}
 
-\item{com}{A vector of abundance of a species registered in the same 
+\item{sp}{A vector of abundance of a species registered in the same 
 samples as environmetal data}
 
 \item{resolution}{To divide the range of each environmental variable}
 }
 \value{
-
+An object of class ftable with the abundance of a species 
+in an grid of environmental variables
 }
 \description{
 A partir de un vector o matriz de datos ambientales
 devuelve la presencia de una especie en hipercubos de una resolución definida
 }
 \examples{
+
+#' da <- read.delim("Data/data.txt")
+
+# Select community (species) data
+
+com <- da[,18:50]
+
+# Select environmental data
+
+env <- da[,3:17]
+
+# Obtain the presence of the Onychiuridae species in a grid 
+# of environmental variables 
+
+sp_hypercube(env[,c("P","MO","N")],com.pa[,"onychiuridae"],5)
+
+# Obtain the simultaneous presence of the four species in a grid 
+# of environmental variables
+
+sp_hypercube(env[,c("P","MO","N")],com.pa[,"onychiuridae"] * com.pa[,"isotomidae"]* com.pa[,"eupodoidea"]* com.pa[,"Aporos"],5)
 
 
 }
