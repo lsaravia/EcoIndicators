@@ -21,10 +21,7 @@ sp_hypercube <- function(env,com,resolution=3){
   }
   
   com.pa <- decostand(com, method = "pa")
-  
-  # Tabla con el número de muestras en las que está presente la especie
-  # por cada cubo.
-  
+ 
   env.factorized <- as_niche_factor(env,resolution)
   
   if(is.vector(env)){
