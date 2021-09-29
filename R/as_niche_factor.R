@@ -1,4 +1,4 @@
-#' Converts a vector or matrix of quantitative environemtal data as a 
+#' Converts a vector or matrix of quantitative environmental data as a 
 #' factorized version of a desired resolution
 #'
 #' @param env A matrix or data.frame of quantitative environmental data
@@ -19,7 +19,7 @@ as_niche_factor <- function(env,resolution=3){
     return(round(result,dec))
   }
   
-  # matríz con las divisiones del rango en función de la resolución
+# matríz con las divisiones del rango en función de la resolución
   
   if(is.vector(env)){
     env.factorized <- cut(env,myseq(env,resolution),include.lowest = TRUE)

@@ -734,7 +734,7 @@ for(e in 1:hasta.donde){
 # Andrés --------------------------
 
 # Aplico la función identify_env a subconjuntos de la comunidad del mismo 
-# ambiente, sorteando submuestras de 3 muestras
+# ambiente, sorteando submuestras de n muestras
 
 com.AG <- com[env$Ambiente=="AG",]
 com.CG <- com[env$Ambiente=="CG",]
@@ -1298,6 +1298,8 @@ aparicion.conjunta.en.cada.cubo(c(4,7))
 
 sp_hypercube(env[,c(7,8)],com[,4]*com[,7])
 
+sp_hypercube(env[,c(7,8)],com[,4]*com[,7])
+
 # ----------------------------------------
 
 
@@ -1410,7 +1412,7 @@ mosaicplot(as.table(sp_hypercube(env[,c(7,8,14)],com.pa[,"hypogastruridae"] * co
 
 # Andrés ----------------------------------------------
 
-rhodacaroidea.hyp <- sp_hypercube(env[,c(8,14)],com$rhodacaroidea,4)
+rhodacaroidea.hyp <- sp_hypercube(env[,c(7,8,14)],com$rhodacaroidea,4)
 
 library(vcd)
 
@@ -1469,14 +1471,25 @@ espindic(decostand(veg[,-1],method = "total",MARGIN = 2),cutree(veg.hclust,3))
 
 help("decostand")
 
+### Validación ----------------------------------
+veces <- 100
+ugru <- unique(group)
+com.gr <- com.NG
 
+com[group=="NG",]
 
+acu <- lapply(unique(group), function(x) {
+  com.gr <- com[group==x,]
+  R <- rep(0,veces)
+  R <- lapply(1:veces, function(x){ identify_env(com,com.gr[sample(nrow(com.gr),
+                                                                   size = n,replace = TRUE),],indic.sp)})
+  out <-sum(R==x )
+  data.frame( group= x, accuracy= out/veces)
+})
 
+### ---------------------------------------------
 
-
-
- 
-
+length(unique(com))
 
 
 

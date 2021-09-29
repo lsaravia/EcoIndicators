@@ -1,9 +1,17 @@
-# implementación del análisis de especies indicadoras 
-# Dufrene, M. and P. Legendre. 1997. Species assemblages and indicator species:
-# The need for a flexible asymmetrical approach. Ecological Monographs67: 345-366 . 
+#' Performs a species indicator analysis following  
+#' Dufrene, M. and P. Legendre. 1997. Species assemblages and indicator species:
+#' The need for a flexible asymmetrical approach. Ecological Monographs 67: 345-366 
+#' McCune, B. & Grace, J. B. Analysis of Ecological Communities 2002, 300 (page 198)
+#' 
+#' @param com A matrix of community data
+#' @param group A vector indicating grouping of observations in the community data
+#'
+#' @return 
+#' @export
+#'
+#' @examples
 
-# McCune, B. & Grace, J. B. Analysis of Ecological Communities 2002, 300
-# Está explicado en la página 198.
+
 
 espindic <- function(com,group){
 require(vegan)
