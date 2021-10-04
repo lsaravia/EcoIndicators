@@ -13,7 +13,7 @@
 #' @return The environment.
 #' @export
 #'
-#' @examples #' 
+#' @examples
 #' 
 #' #' da <- read.delim("data/data.txt")
 #' 
@@ -21,7 +21,15 @@
 #' 
 #' com <- da[,18:50]
 #' 
-#' newsamples <- 1
+#' # Select a new community matrix with abundances of the same
+#' # species as 'com'.
+#' 
+#' newsamples <- read.delim("data/newsamples.txt")
+#' 
+#' # Grouping factor
+#' group <- da[,1]
+#' 
+#' identify_env(com, newsamples, select_indicator_species(com,group))
 #' 
 
 identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
