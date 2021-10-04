@@ -34,7 +34,8 @@ as_niche_factor <- function(env,partitions=3){
   
   for (i in 1:ncol(env)){
     
-    env.factorized <- data.frame(env.factorized,cut(env[,i],hypercube[,i],include.lowest = TRUE))
+    env.factorized <- data.frame(env.factorized,cut(env[,i],hypercube[,i],
+                                                    include.lowest = TRUE))
     
   }
   
