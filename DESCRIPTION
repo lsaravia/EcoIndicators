@@ -9,7 +9,7 @@ Description: Functions to identify indicator taxonomic units, estimate if a samp
 Authors@R: c(person("Hernán", "de la Vega",role="aut"), 
             person("Liliana", "Falco", role="aut"), 
             person("Leonardo",  "Saravia", role="aut"), 
-            person("Andrés", "Duhour", role=c("aut","cre")),
+            person("Andres", "Duhour", role=c("aut","cre"), email="aduhour@unlu.edu.ar"),
             person("Rosana", "Sandler", role="aut"),
             person("Carlos", "Coviella", role="aut"))
 Encoding: UTF-8
