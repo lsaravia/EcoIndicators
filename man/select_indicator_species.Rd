@@ -23,12 +23,9 @@ environments using a chisqrt test with a given significance level.
 }
 \examples{
 da <- read.delim("data/data.txt")
-############################# CHANGE THIS TO EMBEDDED PACKAGE DATA
 
 # Select community (species) data
 com <- da[,18:50]
-# Select environmental data
-env <- da[,3:17]
 
 # Grouping factor
 group <- da[,1]

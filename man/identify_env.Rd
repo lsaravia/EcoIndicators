@@ -24,7 +24,6 @@ This function use the result of `select_indicator.species` to identify a new
 set of samples of the community
 }
 \examples{
-#' 
 
 #' da <- read.delim("data/data.txt")
 
@@ -32,6 +31,14 @@ set of samples of the community
 
 com <- da[,18:50]
 
-newsamples <- 1
+# Select a new community matrix with abundances of the same
+# species as 'com'.
+
+newsamples <- read.delim("data/newsamples.txt")
+
+# Grouping factor
+group <- da[,1]
+
+identify_env(com, newsamples, select_indicator_species(com,group))
 
 }
