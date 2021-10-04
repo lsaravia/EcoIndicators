@@ -1,6 +1,8 @@
-#' Performs a species indicator analysis following  
-#' Dufrene, M. and P. Legendre. 1997. Species assemblages and indicator species:
+#' Performs a species indicator analysis
+#' 
+#'   @references Dufrene, M. and P. Legendre. 1997. Species assemblages and indicator species:
 #' The need for a flexible asymmetrical approach. Ecological Monographs 67: 345-366 
+#' 
 #' McCune, B. & Grace, J. B. Analysis of Ecological Communities 2002, 300 (page 198)
 #' 
 #' @param com A matrix of community data

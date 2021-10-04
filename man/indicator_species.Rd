@@ -2,10 +2,7 @@
 % Please edit documentation in R/indicator_species.R
 \name{indicator_species}
 \alias{indicator_species}
-\title{Performs a species indicator analysis following  
-Dufrene, M. and P. Legendre. 1997. Species assemblages and indicator species:
-The need for a flexible asymmetrical approach. Ecological Monographs 67: 345-366 
-McCune, B. & Grace, J. B. Analysis of Ecological Communities 2002, 300 (page 198)}
+\title{Performs a species indicator analysis}
 \usage{
 indicator_species(com, group)
 }
@@ -18,9 +15,10 @@ indicator_species(com, group)
 The indicator species
 }
 \description{
-Performs a species indicator analysis following  
-Dufrene, M. and P. Legendre. 1997. Species assemblages and indicator species:
-The need for a flexible asymmetrical approach. Ecological Monographs 67: 345-366 
+@references Dufrene, M. and P. Legendre. 1997. Species assemblages and indicator species:
+The need for a flexible asymmetrical approach. Ecological Monographs 67: 345-366
+}
+\details{
 McCune, B. & Grace, J. B. Analysis of Ecological Communities 2002, 300 (page 198)
 }
 \examples{
