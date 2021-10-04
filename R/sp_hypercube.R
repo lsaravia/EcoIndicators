@@ -3,8 +3,9 @@
 #'
 #' @param env Vector or matrix of quantitative environmental data
 #' @param sp A vector of abundance of a species registered in the same 
-#' samples as environmetal data
-#' @param resolution To divide the range of each environmental variable
+#' samples as environmental data
+#' @param partitions Number in which the range of each environmental variables
+#'  must be divided
 #'
 #' @return An object of class ftable with the abundance of a species 
 #' in an grid of environmental variables
@@ -12,7 +13,7 @@
 #'
 #' @examples 
 #' 
-#' #' da <- read.delim("Data/data.txt")
+#' #' da <- read.delim("data/data.txt")
 #' 
 #' # Select community (species) data
 #' 
@@ -33,7 +34,7 @@
 #' sp_hypercube(env[,c("P","MO","N")],com.pa[,"onychiuridae"] * com.pa[,"isotomidae"]* com.pa[,"eupodoidea"]* com.pa[,"Aporos"],5)
 #' 
 #' 
-sp_hypercube <- function(env,sp,resolution=3){
+sp_hypercube <- function(env,sp,partitions=3){
   
   require(vegan)
   
@@ -43,7 +44,7 @@ sp_hypercube <- function(env,sp,resolution=3){
   
   sp.pa <- decostand(sp, method = "pa")
  
-  env.factorized <- as_niche_factor(env,resolution)
+  env.factorized <- as_niche_factor(env,partitions)
   
   if(is.vector(env)){
     sp.hypercube <- ftable(env.factorized[sp.pa==1])

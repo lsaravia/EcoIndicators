@@ -23,7 +23,7 @@ McCune, B. & Grace, J. B. Analysis of Ecological Communities 2002, 300 (page 198
 }
 \examples{
 
-#' da <- read.delim("Data/data.txt")
+#' da <- read.delim("data/data.txt")
 
 # Select community (species) data
 

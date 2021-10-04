@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @examples
-#' da <- read.delim("Data/data.txt")
+#' da <- read.delim("data/data.txt")
 #' ############################# CHANGE THIS TO EMBEDDED PACKAGE DATA
 #' 
 #' # Select community (species) data

@@ -1,8 +1,8 @@
 #' Converts a vector or matrix of quantitative environmental data as a 
-#' factorized version of a desired resolution
+#' factorized version with a desired numbers of partitions.
 #'
 #' @param env A matrix or data.frame of quantitative environmental data
-#' @param resolution Number of intervals in which divide the range of each variable
+#' @param partitions Number of intervals in which to divide the range of each variable
 #' 
 #'
 #' @return 
@@ -10,23 +10,23 @@
 #'
 #' @examples
 #' 
-as_niche_factor <- function(env,resolution=3){
+as_niche_factor <- function(env,partitions=3){
   
-  myseq <- function(x, resolution, dec=3){ #revisar el tema 'dec'
+  myseq <- function(x, partitions, dec=3){ #revisar el tema 'dec'
     result <- seq(from = min(x), to = max(x), 
-                  length.out = resolution)
+                  length.out = partitions)
     return(round(result,dec))
   }
   
   if(is.vector(env)){
-    env.factorized <- cut(env,myseq(env,resolution),include.lowest = TRUE)
+    env.factorized <- cut(env,myseq(env,partitions),include.lowest = TRUE)
     env.factorized
   }
   else{
     
   
   
-  hypercube <-apply(env, 2, myseq,resolution)
+  hypercube <-apply(env, 2, myseq,partitions)
 
   
   env.factorized <- rep(0,nrow(env))

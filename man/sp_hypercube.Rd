@@ -5,15 +5,16 @@
 \title{A partir de un vector o matriz de datos ambientales
 devuelve la presencia de una especie en hipercubos de una resolución definida}
 \usage{
-sp_hypercube(env, sp, resolution = 3)
+sp_hypercube(env, sp, partitions = 3)
 }
 \arguments{
 \item{env}{Vector or matrix of quantitative environmental data}
 
 \item{sp}{A vector of abundance of a species registered in the same 
-samples as environmetal data}
+samples as environmental data}
 
-\item{resolution}{To divide the range of each environmental variable}
+\item{partitions}{Number in which the range of each environmental variables
+must be divided}
 }
 \value{
 An object of class ftable with the abundance of a species 
@@ -25,7 +26,7 @@ devuelve la presencia de una especie en hipercubos de una resolución definida
 }
 \examples{
 
-#' da <- read.delim("Data/data.txt")
+#' da <- read.delim("data/data.txt")
 
 # Select community (species) data
 

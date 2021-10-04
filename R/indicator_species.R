@@ -13,7 +13,7 @@
 #'
 #' @examples 
 #' 
-#' #' da <- read.delim("Data/data.txt")
+#' #' da <- read.delim("data/data.txt")
 #' 
 #' # Select community (species) data
 #' 

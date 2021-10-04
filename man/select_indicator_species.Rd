@@ -22,7 +22,7 @@ pertenence to an environment using a matrix of species samples at different
 environments using a chisqrt test with a given significance level.
 }
 \examples{
-da <- read.delim("Data/data.txt")
+da <- read.delim("data/data.txt")
 ############################# CHANGE THIS TO EMBEDDED PACKAGE DATA
 
 # Select community (species) data

@@ -3,21 +3,21 @@
 \name{as_niche_factor}
 \alias{as_niche_factor}
 \title{Converts a vector or matrix of quantitative environmental data as a 
-factorized version of a desired resolution}
+factorized version with a desired numbers of partitions.}
 \usage{
-as_niche_factor(env, resolution = 3)
+as_niche_factor(env, partitions = 3)
 }
 \arguments{
 \item{env}{A matrix or data.frame of quantitative environmental data}
 
-\item{resolution}{Number of intervals in which divide the range of each variable}
+\item{partitions}{Number of intervals in which to divide the range of each variable}
 }
 \value{
 
 }
 \description{
 Converts a vector or matrix of quantitative environmental data as a 
-factorized version of a desired resolution
+factorized version with a desired numbers of partitions.
 }
 \examples{
 
