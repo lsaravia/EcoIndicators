@@ -36,8 +36,6 @@
 
 identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   
-  require(vegan)
-  
   # Agregar warnings y stop 
   # revisando algunas condiciones de los argumentos
   
@@ -46,10 +44,7 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   
   pcond.indic <- indicator.species$pcond[,indicator.species$names ] #subset(indicator.species$pcond,select = indicator.species$col.indic)
 
-  
-
-
-  com.pa <- decostand(com,method = "pa")
+  com.pa <- com[com>0] <- 1
 
   com.pa.indic <- com.pa[,indicator.species$names] 
   

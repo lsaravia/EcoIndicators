@@ -22,12 +22,14 @@ pertenence to an environment using a matrix of species samples at different
 environments using a chisqrt test with a given significance level.
 }
 \examples{
+
+# Read data
 da <- read.delim("data/data.txt")
 
 # Select community (species) data
 com <- da[,18:50]
 
-# Grouping factor
+# Select grouping factor
 group <- da[,1]
 
 select_indicator_species(com,group,0.05)

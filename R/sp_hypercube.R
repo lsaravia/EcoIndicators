@@ -36,13 +36,11 @@
 #' 
 sp_hypercube <- function(env,sp,partitions=3){
   
-  require(vegan)
-  
   if (!is.vector(sp)){
     stop("Expected a vector of species abundances")
   }
   
-  sp.pa <- decostand(sp, method = "pa")
+  sp.pa <- sp[sp>0] <- 1
  
   env.factorized <- as_niche_factor(env,partitions)
   

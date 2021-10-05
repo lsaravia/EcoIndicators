@@ -26,11 +26,9 @@
 #' 
 select_indicator_species <- function(com,group,alfa=0.05) {
   
-  require(vegan)
-  
   group <- as.factor(group)
   
-  com.pa <- decostand(com,method = "pa")
+  com.pa <- com[com>0] <- 1
   
   p.cond <- sweep(aggregate(com.pa,by=list(group),sum)[,-1],2,colSums(com.pa),'/')
   rownames(p.cond) <- levels(group)
