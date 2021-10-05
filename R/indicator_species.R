@@ -25,7 +25,6 @@
 #' 
 #' 
 indicator_species <- function(com,group){
-require(vegan)
 
   group <- as.factor(group)
   
@@ -43,7 +42,7 @@ abundmedia <- aggregate(com,by=list(group),FUN = mean)[,-1]
 
 abundrel <- sweep(abundmedia,2,colSums(abundmedia),'/')
 
-com.pa <- decostand(com,method = "pa")
+com.pa <- com[com>0] <- 1
 
 frecrel <- aggregate(com.pa,by=list(group),mean)[,-1]
 
