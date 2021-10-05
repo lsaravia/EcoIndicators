@@ -1,12 +1,11 @@
 #' Select indicator species
 #' 
-#' This function select species that indicate with a given probability the 
-#' pertenence to an environment using a matrix of species samples at different
-#' environments using a chisqrt test with a given significance level. 
-#'
-#' @param com matrix or data.frame with species in columns and samples in rows
-#' @param group vector of the environments of the samples
-#' @param alfa significance level used for the test
+#' Selection of species that indicate with a given probability of
+#' belonging to an environment. 
+#' 
+#' @param com matrix or data.frame with species in columns and samples in rows.
+#' @param group vector of the samples grouping.
+#' @param alfa significance level used for the test.
 #'
 #' @return A data.frame with the species that are above
 #' @export

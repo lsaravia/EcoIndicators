@@ -8,12 +8,14 @@ factorized version with a desired numbers of partitions.}
 as_niche_factor(env, partitions = 3)
 }
 \arguments{
-\item{env}{A matrix or data.frame of quantitative environmental data}
+\item{env}{A matrix or data.frame of quantitative environmental data.}
 
-\item{partitions}{Number of intervals in which to divide the range of each variable}
+\item{partitions}{Number of intervals in which to divide the range of each variable.}
+
+\item{digits}{Number of decimal places to be used.}
 }
 \value{
-A data.frame
+A data.frame of numeric variables converted to factor
 }
 \description{
 Converts a vector or matrix of quantitative environmental data as a 

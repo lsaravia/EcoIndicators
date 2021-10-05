@@ -40,11 +40,11 @@ env <- da[,3:17]
 # Obtain the presence of the Onychiuridae species in a grid 
 # of environmental variables 
 
-sp_hypercube(env[,c("P","MO","N")],com.pa[,"onychiuridae"],5)
+sp_hypercube(env[,c("P","MO","N")],com[,"onychiuridae"],5)
 
 # Obtain the simultaneous presence of the four species in a grid 
 # of environmental variables
 
-sp_hypercube(env[,c("P","MO","N")],com.pa[,"onychiuridae"] *
- com.pa[,"isotomidae"] * com.pa[,"eupodoidea"]* com.pa[,"Aporos"],5)
+sp_hypercube(env[,c("P","MO","N")],com[,"onychiuridae"] *
+ com[,"isotomidae"] * com[,"eupodoidea"]* com[,"Aporos"],5)
 }

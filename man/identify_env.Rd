@@ -36,7 +36,7 @@ com <- da[,18:50]
 # Read data of new community matrix with abundances of the same
 # species as 'com'.
 
-newsamples <- read.delim("data/newsamples.txt")
+newcom <- read.delim("data/newcom.txt")
 
 # Select grouping factor
 group <- da[,1]

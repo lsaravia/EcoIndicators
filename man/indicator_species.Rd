@@ -15,9 +15,14 @@ indicator_species(com, group)
 The indicator species
 }
 \description{
-@references c("Dufrene, M. and P. Legendre. 1997. Species assemblages and indicator species:
-The need for a flexible asymmetrical approach. Ecological Monographs 67: 345-366", McCune, B. & Grace, 
-J. B. Analysis of Ecological Communities 2002, 300 (page 198))
+@references 
+  
+  Dufrene, M. and P. Legendre. 1997. Species assemblages and indicator species:
+The need for a flexible asymmetrical approach. Ecological Monographs 67: 345-366
+}
+\details{
+McCune, B. & Grace, 
+J. B. Analysis of Ecological Communities 2002, 300 (page 198)
 }
 \examples{
 

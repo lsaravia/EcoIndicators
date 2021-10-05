@@ -25,13 +25,13 @@
 #' # Obtain the presence of the Onychiuridae species in a grid 
 #' # of environmental variables 
 #' 
-#' sp_hypercube(env[,c("P","MO","N")],com.pa[,"onychiuridae"],5)
+#' sp_hypercube(env[,c("P","MO","N")],com[,"onychiuridae"],5)
 #' 
 #' # Obtain the simultaneous presence of the four species in a grid 
 #' # of environmental variables
 #' 
-#' sp_hypercube(env[,c("P","MO","N")],com.pa[,"onychiuridae"] *
-#'  com.pa[,"isotomidae"] * com.pa[,"eupodoidea"]* com.pa[,"Aporos"],5)
+#' sp_hypercube(env[,c("P","MO","N")],com[,"onychiuridae"] *
+#'  com[,"isotomidae"] * com[,"eupodoidea"]* com[,"Aporos"],5)
 sp_hypercube <- function(env,sp,partitions=3){
   
   if (!is.vector(sp)){
@@ -39,7 +39,8 @@ sp_hypercube <- function(env,sp,partitions=3){
   }
   
   sp[sp>0] <- 1
- 
+  partitions <- partitions + 1
+  
   env.factorized <- as_niche_factor(env,partitions)
   
   if(is.vector(env)){

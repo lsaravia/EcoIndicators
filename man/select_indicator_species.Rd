@@ -7,19 +7,18 @@
 select_indicator_species(com, group, alfa = 0.05)
 }
 \arguments{
-\item{com}{matrix or data.frame with species in columns and samples in rows}
+\item{com}{matrix or data.frame with species in columns and samples in rows.}
 
-\item{group}{vector of the environments of the samples}
+\item{group}{vector of the samples grouping.}
 
-\item{alfa}{significance level used for the test}
+\item{alfa}{significance level used for the test.}
 }
 \value{
 A data.frame with the species that are above
 }
 \description{
-This function select species that indicate with a given probability the 
-pertenence to an environment using a matrix of species samples at different
-environments using a chisqrt test with a given significance level.
+Selection of species that indicate with a given probability of
+belonging to an environment.
 }
 \examples{
 
