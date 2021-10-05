@@ -13,7 +13,9 @@
 #'
 #' @examples 
 #' 
-#' #' da <- read.delim("data/data.txt")
+#' # Read data
+#' 
+#' da <- read.delim("data/data.txt")
 #' 
 #' # Select community (species) data
 #' 
@@ -42,9 +44,9 @@ abundmedia <- aggregate(com,by=list(group),FUN = mean)[,-1]
 
 abundrel <- sweep(abundmedia,2,colSums(abundmedia),'/')
 
-com.pa <- com[com>0] <- 1
+com[com>0] <- 1
 
-frecrel <- aggregate(com.pa,by=list(group),mean)[,-1]
+frecrel <- aggregate(com,by=list(group),mean)[,-1]
 
 espindic <- abundrel*frecrel*100
 
@@ -56,22 +58,22 @@ espindic
 
 
 
-espindicmc <- function(com, group, veces=1000){
+#espindicmc <- function(com, group, veces=1000){
 #Calcula el valor indicador de cada especie
-espindic_actual <- indicator_species(com,group)
+#espindic_actual <- indicator_species(com,group)
 
-espindic_num<-0
+#espindic_num<-0
 
-for (i in 1:veces){
-  espindic_alazar <- indicator_species(com,sample(group))
-  espindic_num <- espindic_num + as.integer((espindic_alazar - espindic_actual)>=0)
-}
+#for (i in 1:veces){
+#  espindic_alazar <- indicator_species(com,sample(group))
+#  espindic_num <- espindic_num + as.integer((espindic_alazar - espindic_actual)>=0)
+#}
 
-espindic_prob <- espindic_num/veces
-names(espindic_prob) <- names(espindic_actual)
-espindic_prob
-}
+#espindic_prob <- espindic_num/veces
+#names(espindic_prob) <- names(espindic_actual)
+#espindic_prob
+#}
 
 
-com.espindic <- indicator_species(com[rowSums(com)>0,colSums(com)>0],env$Ambiente[rowSums(com)>0])
-barplot(com.espindic)
+#com.espindic <- indicator_species(com[rowSums(com)>0,colSums(com)>0],group[rowSums(com)>0])
+#barplot(com.espindic)

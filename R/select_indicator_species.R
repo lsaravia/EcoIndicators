@@ -28,13 +28,13 @@ select_indicator_species <- function(com,group,alfa=0.05) {
   
   group <- as.factor(group)
   
-  com.pa <- com[com>0] <- 1
+  com[com>0] <- 1
   
-  p.cond <- sweep(aggregate(com.pa,by=list(group),sum)[,-1],2,colSums(com.pa),'/')
+  p.cond <- sweep(aggregate(com,by=list(group),sum)[,-1],2,colSums(com),'/')
   rownames(p.cond) <- levels(group)
   
-  observed <- aggregate(com.pa,by=list(group),sum)[,-1]
-  expected <- colSums(com.pa)/nlevels(group)
+  observed <- aggregate(com,by=list(group),sum)[,-1]
+  expected <- colSums(com)/nlevels(group)
   
   
   indep <- colSums(sweep((sweep(observed,2,expected,'-')^2),2,expected,'/'))

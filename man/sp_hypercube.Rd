@@ -25,8 +25,9 @@ A partir de un vector o matriz de datos ambientales
 devuelve la presencia de una especie en hipercubos de una resolución definida
 }
 \examples{
+# Read data
 
-#' da <- read.delim("data/data.txt")
+ da <- read.delim("data/data.txt")
 
 # Select community (species) data
 
@@ -44,7 +45,6 @@ sp_hypercube(env[,c("P","MO","N")],com.pa[,"onychiuridae"],5)
 # Obtain the simultaneous presence of the four species in a grid 
 # of environmental variables
 
-sp_hypercube(env[,c("P","MO","N")],com.pa[,"onychiuridae"] * com.pa[,"isotomidae"]* com.pa[,"eupodoidea"]* com.pa[,"Aporos"],5)
-
-
+sp_hypercube(env[,c("P","MO","N")],com.pa[,"onychiuridae"] *
+ com.pa[,"isotomidae"] * com.pa[,"eupodoidea"]* com.pa[,"Aporos"],5)
 }

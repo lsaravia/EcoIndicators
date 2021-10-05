@@ -13,12 +13,22 @@ as_niche_factor(env, partitions = 3)
 \item{partitions}{Number of intervals in which to divide the range of each variable}
 }
 \value{
-
+A data.frame
 }
 \description{
 Converts a vector or matrix of quantitative environmental data as a 
 factorized version with a desired numbers of partitions.
 }
 \examples{
+
+# Read data
+
+da <- read.delim("data/data.txt")
+
+# Select environmental data
+
+env <- da[,3:17]
+
+as_niche_factor(env)
 
 }

@@ -5,10 +5,20 @@
 #' @param partitions Number of intervals in which to divide the range of each variable
 #' 
 #'
-#' @return 
+#' @return A data.frame
 #' @export
 #'
 #' @examples
+#' 
+#' # Read data
+#' 
+#' da <- read.delim("data/data.txt")
+#' 
+#' # Select environmental data
+#' 
+#' env <- da[,3:17]
+#' 
+#' as_niche_factor(env)
 #' 
 as_niche_factor <- function(env,partitions=3){
   
@@ -24,8 +34,6 @@ as_niche_factor <- function(env,partitions=3){
   }
   else{
     
-  
-  
   hypercube <-apply(env, 2, myseq,partitions)
 
   

@@ -17,7 +17,7 @@
 #' 
 #' # Read data
 #' 
-#' #' da <- read.delim("data/data.txt")
+#' da <- read.delim("data/data.txt")
 #' 
 #' # Select community (species) data
 #' 
@@ -44,14 +44,14 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   
   pcond.indic <- indicator.species$pcond[,indicator.species$names ] #subset(indicator.species$pcond,select = indicator.species$col.indic)
 
-  com.pa <- com[com>0] <- 1
+  com[com>0] <- 1
 
-  com.pa.indic <- com.pa[,indicator.species$names] 
+  com.indic <- com[,indicator.species$names] 
   
   n <- nrow(indicator.species$pcond) 
   
-  lim.sup<-(1/n)+qnorm(1-alfa)*sqrt(((1/n)*(1-(1/n)))/colSums(com.pa.indic))
-  lim.inf<-(1/n)-qnorm(1-alfa)*sqrt(((1/n)*(1-(1/n)))/colSums(com.pa.indic))
+  lim.sup<-(1/n)+qnorm(1-alfa)*sqrt(((1/n)*(1-(1/n)))/colSums(com.indic))
+  lim.inf<-(1/n)-qnorm(1-alfa)*sqrt(((1/n)*(1-(1/n)))/colSums(com.indic))
   
   
   D <- pcond.indic
@@ -66,10 +66,10 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   
 
   
-  com2id.pa <- decostand(com.to.identify,method="pa")
+  com2id <- com.to.identify[com.to.identify>0] <- 1
   
 
-  com2id.sel <- com2id.pa[,indicator.species$names]
+  com2id.sel <- com2id[,indicator.species$names]
   
   A <- colSums(com2id.sel)
   
