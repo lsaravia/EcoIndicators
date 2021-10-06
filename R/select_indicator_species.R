@@ -8,6 +8,7 @@
 #' @param alfa significance level used for the test.
 #'
 #' @return A data.frame with the species that are above
+#' @import stats
 #' @export
 #'
 #' @examples

@@ -7,20 +7,20 @@
 identify_env(com, com.to.identify, indicator.species, alfa = 0.05)
 }
 \arguments{
-\item{com}{The original community used to select indicator species}
+\item{com}{The original community used to select indicator species.}
 
 \item{com.to.identify}{A new sample o group of samples to identify the 
 environment that they belong.}
 
-\item{indicator.species}{Result of `selec_indicator_species`}
+\item{indicator.species}{Result of `selec_indicator_species`.}
 
-\item{alfa}{significance level used for the test}
+\item{alfa}{Significance level used for the test.}
 }
 \value{
 The environment.
 }
 \description{
-This function use the result of `select_indicator.species` to identify a new 
+This function use the result of `select_indicator_species` to identify a new 
 set of samples of the community
 }
 \examples{

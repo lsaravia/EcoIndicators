@@ -21,8 +21,6 @@
 #' 
 as_niche_factor <- function(env,partitions=3){
   
-  #env <- round(env, digits = digits)
-  
   mycut <- function(x, partitions){ 
     result <- cut(x, seq(from = min(x), to = max(x), 
                   length.out = partitions),include.lowest = TRUE)

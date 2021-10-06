@@ -1,13 +1,13 @@
 #' Identify the environment from new samples of community species
 #' 
-#' This function use the result of `select_indicator.species` to identify a new 
+#' This function use the result of `select_indicator_species` to identify a new 
 #' set of samples of the community
 #'
-#' @param com The original community used to select indicator species
+#' @param com The original community used to select indicator species.
 #' @param com.to.identify A new sample o group of samples to identify the 
 #' environment that they belong.
-#' @param indicator.species Result of `selec_indicator_species`
-#' @param alfa significance level used for the test
+#' @param indicator.species Result of `selec_indicator_species`.
+#' @param alfa Significance level used for the test.
 #' 
 #'
 #' @return The environment.
@@ -41,7 +41,7 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   # Creamos un subconjunto de las probabilidades condicionales con las que 
   # corresponden a las especies indicadoras
   
-  pcond.indic <- indicator.species$pcond[,indicator.species$names ] #subset(indicator.species$pcond,select = indicator.species$col.indic)
+  pcond.indic <- indicator.species$pcond[,indicator.species$names]
 
   com[com>0] <- 1
 
@@ -64,7 +64,6 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   Dt[Dt < lim.sup & Dt > lim.inf] <- 0
   
 
-  
   com2id <- com.to.identify[com.to.identify>0] <- 1
   
 

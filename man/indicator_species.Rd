@@ -34,7 +34,7 @@ da <- read.delim("data/data.txt")
 
 com <- da[,18:50]
 
-Grouping factor
+# Select Grouping factor
 
 group <- da[,1]
 

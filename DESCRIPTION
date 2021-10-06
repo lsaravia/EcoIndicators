@@ -13,4 +13,5 @@ Authors@R: c(person("Hernán", "de la Vega",role="aut"),
             person("Rosana", "Sandler", role="aut"),
             person("Carlos", "Coviella", role="aut"))
 Encoding: UTF-8
+Imports: stats 
 RoxygenNote: 7.1.2
