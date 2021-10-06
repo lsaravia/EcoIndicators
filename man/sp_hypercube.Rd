@@ -27,7 +27,7 @@ devuelve la presencia de una especie en hipercubos de una resolución definida
 \examples{
 # Read data
 
- da <- read.delim("data/data.txt")
+ da <- read.delim("data/soilandfauna.txt")
 
 # Select community (species) data
 

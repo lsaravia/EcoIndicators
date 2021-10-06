@@ -28,7 +28,7 @@ J. B. Analysis of Ecological Communities 2002, 300 (page 198)
 
 # Read data
 
-da <- read.delim("data/data.txt")
+da <- read.delim("data/soilandfauna.txt")
 
 # Select community (species) data
 

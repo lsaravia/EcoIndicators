@@ -23,7 +23,7 @@ factorized version with a desired numbers of partitions.
 
 # Read data
 
-da <- read.delim("data/data.txt")
+da <- read.delim("data/soilandfauna.txt")
 
 # Select environmental data
 

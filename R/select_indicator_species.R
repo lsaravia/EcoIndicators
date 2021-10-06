@@ -14,7 +14,7 @@
 #' @examples
 #' 
 #' # Read data
-#' da <- read.delim("data/data.txt")
+#' da <- read.delim("data/soilandfauna.txt")
 #' 
 #' # Select community (species) data
 #' com <- da[,18:50]

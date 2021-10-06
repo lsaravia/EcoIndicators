@@ -27,7 +27,7 @@ set of samples of the community
 
 # Read data
 
-da <- read.delim("data/data.txt")
+da <- read.delim("data/soilandfauna.txt")
 
 # Select community (species) data
 
