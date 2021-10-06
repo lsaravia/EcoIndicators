@@ -3,7 +3,6 @@
 #'
 #' @param env A matrix or data.frame of quantitative environmental data.
 #' @param partitions Number of intervals in which to divide the range of each variable.
-#' @param digits Number of decimal places to be used.
 #'
 #' @return A data.frame of numeric variables converted to factor
 #' @export

@@ -11,8 +11,6 @@ as_niche_factor(env, partitions = 3)
 \item{env}{A matrix or data.frame of quantitative environmental data.}
 
 \item{partitions}{Number of intervals in which to divide the range of each variable.}
-
-\item{digits}{Number of decimal places to be used.}
 }
 \value{
 A data.frame of numeric variables converted to factor
