@@ -25,26 +25,25 @@ A partir de un vector o matriz de datos ambientales
 devuelve la presencia de una especie en hipercubos de una resolución definida
 }
 \examples{
-# Read data
 
- da <- read.delim("data/soilandfauna.txt")
+data(soilandfauna)
 
 # Select community (species) data
 
-com <- da[,18:50]
+com <- soilandfauna[,18:50]
 
 # Select environmental data
 
-env <- da[,3:17]
+env <- soilandfauna[,3:17]
 
 # Obtain the presence of the Onychiuridae species in a grid 
 # of environmental variables 
 
-sp_hypercube(env[,c("P","MO","N")],com[,"onychiuridae"],5)
+sp_hypercube(env[,c("P","OM","N")],com[,"Onychiuridae"],5)
 
 # Obtain the simultaneous presence of the four species in a grid 
 # of environmental variables
 
-sp_hypercube(env[,c("P","MO","N")],com[,"onychiuridae"] *
- com[,"isotomidae"] * com[,"eupodoidea"]* com[,"Aporos"],5)
+sp_hypercube(env[,c("P","OM","N")],com[,"Onychiuridae"] *
+ com[,"Isotomidae"] * com[,"Eupodoidea"]* com[,"Aporrectodea_rosea"],5)
 }

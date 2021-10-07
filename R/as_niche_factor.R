@@ -9,13 +9,11 @@
 #'
 #' @examples
 #' 
-#' # Read data
-#' 
-#' da <- read.delim("data/soilandfauna.txt")
+#' data(soilandfauna)
 #' 
 #' # Select environmental data
 #' 
-#' env <- da[,3:17]
+#' env <- soilandfauna[,c("Bd","P","EC")]
 #' 
 #' as_niche_factor(env)
 #' 

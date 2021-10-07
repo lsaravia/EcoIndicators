@@ -15,13 +15,11 @@
 #'
 #' @examples
 #' 
-#' # Read data
-#' 
-#' da <- read.delim("data/soilandfauna.txt")
-#' 
+#' data(soilandfauna)
+#'  
 #' # Select community (species) data
 #' 
-#' com <- da[,18:50]
+#' com <- soilandfauna[,18:50]
 #' 
 #' # Read data of new community matrix with abundances of the same
 #' # species as 'com'.
@@ -29,7 +27,7 @@
 #' newcom <- read.delim("data/newcom.txt")
 #' 
 #' # Select grouping factor
-#' group <- da[,1]
+#' group <- soilandfauna[,1]
 #' 
 #' identify_env(com, newsamples, select_indicator_species(com,group))
 #' 

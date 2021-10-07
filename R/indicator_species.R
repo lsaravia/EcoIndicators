@@ -16,18 +16,15 @@
 #'
 #' @examples 
 #' 
-#' # Read data
-#' 
-#' da <- read.delim("data/soilandfauna.txt")
+#' data(soilandfauna)
 #' 
 #' # Select community (species) data
 #' 
-#' com <- da[,18:50]
+#' com <- soilandfauna[,18:50]
 #' 
 #' # Select Grouping factor
 #' 
-#' group <- da[,1]
-#' 
+#' group <- soilandfauna[,1]
 #' 
 indicator_species <- function(com,group){
 
