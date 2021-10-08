@@ -3,7 +3,7 @@
 \docType{data}
 \title{
 %%   ~~ data name/kind ... ~~
-Soil phisico chemical properties and abundance of fauna
+Soil physico chemical properties and abundance of fauna
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of the dataset. ~~
