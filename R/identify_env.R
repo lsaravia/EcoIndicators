@@ -33,10 +33,7 @@
 #' 
 identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   
-  # Agregar warnings y stop 
-  # revisando algunas condiciones de los argumentos
-  
-  # Creamos un subconjunto de las probabilidades condicionales con las que 
+  # Creamos un subconjunto de las probabilidades condicionales que 
   # corresponden a las especies indicadoras
   
   pcond.indic <- indicator.species$pcond[,indicator.species$names]
@@ -66,8 +63,6 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   com.to.identify.sel <- com.to.identify[,indicator.species$names]
   
   A <- colSums(com.to.identify.sel)
-  
-  
   
   est.env <- A %*% Dt
   

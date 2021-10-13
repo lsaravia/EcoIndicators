@@ -57,34 +57,8 @@ frecrel <- aggregate(com,by=list(group),mean)[,-1]
 
 espindic <- abundrel*frecrel*100
 
-espindic <- sort(apply(abundrel*frecrel*100,2,max),decreasing=T)
-
-#espindic.prob <- 
-
-#espindic_num<-0
-
-#for (i in 1:veces){
-#  espindic_alazar <- indicator_species(com,sample(group))
-#  espindic_num <- espindic_num + as.integer((espindic_alazar - espindic_actual)>=0)
-#}
-
-#espindic_prob <- espindic_num/veces
-#names(espindic_prob) <- names(espindic_actual)
-#espindic_prob
+rownames(espindic) <- niveles
 
 espindic
+
 }
-
-
-
-
-#espindicmc <- function(com, group, veces=1000){
-#Calcula el valor indicador de cada especie
-#espindic_actual <- indicator_species(com,group)
-
-
-#}
-
-
-#com.espindic <- indicator_species(com[rowSums(com)>0,colSums(com)>0],group[rowSums(com)>0])
-#

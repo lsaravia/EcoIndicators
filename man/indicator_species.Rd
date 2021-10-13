@@ -4,7 +4,7 @@
 \alias{indicator_species}
 \title{Performs a species indicator analysis}
 \usage{
-indicator_species(com, group)
+indicator_species(com, group, times = 100)
 }
 \arguments{
 \item{com}{A matrix of community data}
@@ -35,5 +35,9 @@ com <- soilandfauna[,18:50]
 # Select Grouping factor
 
 group <- soilandfauna[,1]
+
+out <- indicator_species(com,group)
+
+barplot(out)
 
 }
