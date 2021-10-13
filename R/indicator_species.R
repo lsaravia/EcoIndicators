@@ -26,13 +26,20 @@
 #' 
 #' group <- soilandfauna[,1]
 #' 
-indicator_species <- function(com,group){
+#' out <- indicator_species(com,group)
+#' 
+#' barplot(out)
+#' 
+indicator_species <- function(com,group,times=100){
 
   group <- as.factor(group)
   
-if (!is.data.frame(com)){
-stop("el argumento debe ser tipo data.frame")
-}
+  com <- as.data.frame(com)
+  
+#if (!is.data.frame(com)){
+#stop("The argument 'com' must be a data.frame")
+#}
+  
 nmuestras <- nrow(com)
 nespecies <- ncol(com)
 
@@ -52,15 +59,7 @@ espindic <- abundrel*frecrel*100
 
 espindic <- sort(apply(abundrel*frecrel*100,2,max),decreasing=T)
 
-espindic
-}
-
-
-
-
-#espindicmc <- function(com, group, veces=1000){
-#Calcula el valor indicador de cada especie
-#espindic_actual <- indicator_species(com,group)
+#espindic.prob <- 
 
 #espindic_num<-0
 
@@ -72,8 +71,20 @@ espindic
 #espindic_prob <- espindic_num/veces
 #names(espindic_prob) <- names(espindic_actual)
 #espindic_prob
+
+espindic
+}
+
+
+
+
+#espindicmc <- function(com, group, veces=1000){
+#Calcula el valor indicador de cada especie
+#espindic_actual <- indicator_species(com,group)
+
+
 #}
 
 
 #com.espindic <- indicator_species(com[rowSums(com)>0,colSums(com)>0],group[rowSums(com)>0])
-#barplot(com.espindic)
+#

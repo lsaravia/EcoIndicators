@@ -30,6 +30,7 @@ select_indicator_species <- function(com,group,alfa=0.05) {
   com[com>0] <- 1
   
   p.cond <- sweep(aggregate(com,by=list(group),sum)[,-1],2,colSums(com),'/')
+  
   rownames(p.cond) <- levels(group)
   
   observed <- aggregate(com,by=list(group),sum)[,-1]

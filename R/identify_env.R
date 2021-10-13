@@ -41,9 +41,11 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   
   pcond.indic <- indicator.species$pcond[,indicator.species$names]
 
-  com[com>0] <- 1
+  com[com>0] <- 1 # Transforma la matriz a presencia-ausencia
 
   com.indic <- com[,indicator.species$names] 
+  
+  com.to.identify[com.to.identify>0] <- 1
   
   n <- nrow(indicator.species$pcond) 
   
@@ -61,13 +63,9 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   
   Dt[Dt < lim.sup & Dt > lim.inf] <- 0
   
-
-  com2id <- com.to.identify[com.to.identify>0] <- 1
+  com.to.identify.sel <- com.to.identify[,indicator.species$names]
   
-
-  com2id.sel <- com2id[,indicator.species$names]
-  
-  A <- colSums(com2id.sel)
+  A <- colSums(com.to.identify.sel)
   
   
   
