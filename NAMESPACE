@@ -2,6 +2,7 @@
 
 export(as_niche_factor)
 export(identify_env)
+export(identify_env_test)
 export(indicator_species)
 export(select_indicator_species)
 export(sp_hypercube)

@@ -4,7 +4,7 @@
 \alias{identify_env}
 \title{Identify the environment from new samples of community species}
 \usage{
-identify_env(com, com.to.identify, indicator.species, alfa = 0.05)
+identify_env(com, com.to.identify, group, alfa = 0.05)
 }
 \arguments{
 \item{com}{The original community used to select indicator species.}
@@ -12,12 +12,13 @@ identify_env(com, com.to.identify, indicator.species, alfa = 0.05)
 \item{com.to.identify}{A new sample o group of samples to identify the 
 environment that they belong.}
 
-\item{indicator.species}{Result of `selec_indicator_species`.}
+\item{group}{vector of the samples grouping}
 
 \item{alfa}{Significance level used for the test.}
 }
 \value{
-The environment.
+A list with the the environemnt estimation value for each group 
+and the belonging environment estimated.
 }
 \description{
 This function use the result of `select_indicator_species` to identify a new 
@@ -39,6 +40,6 @@ newcom <- read.delim("data/newcom.txt")
 # Select grouping factor
 group <- soilandfauna[,1]
 
-identify_env(com, newsamples, select_indicator_species(com,group))
+identify_env(com, newsamples, group)
 
 }

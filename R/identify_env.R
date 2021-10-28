@@ -6,11 +6,12 @@
 #' @param com The original community used to select indicator species.
 #' @param com.to.identify A new sample o group of samples to identify the 
 #' environment that they belong.
-#' @param indicator.species Result of `selec_indicator_species`.
+#' @param group vector of the samples grouping
 #' @param alfa Significance level used for the test.
 #' 
 #'
-#' @return The environment.
+#' @return A list with the the environemnt estimation value for each group 
+#' and the belonging environment estimated.
 #' @export
 #'
 #' @examples
@@ -29,12 +30,15 @@
 #' # Select grouping factor
 #' group <- soilandfauna[,1]
 #' 
-#' identify_env(com, newsamples, select_indicator_species(com,group))
+#' identify_env(com, newsamples, group)
 #' 
-identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
+identify_env <- function(com, com.to.identify, group ,alfa = 0.05){
   
   # Creamos un subconjunto de las probabilidades condicionales que 
   # corresponden a las especies indicadoras
+  
+  indicator.species <- select_indicator_species(com,group,alfa)
+  
   
   pcond.indic <- indicator.species$pcond[,indicator.species$names]
 
@@ -42,7 +46,7 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
 
   com.indic <- com[,indicator.species$names] 
   
-  com.to.identify[com.to.identify>0] <- 1
+  com.to.identify[com.to.identify>0] <- 1 # Transforma la matriz a presencia-ausencia
   
   n <- nrow(indicator.species$pcond) 
   
@@ -64,10 +68,12 @@ identify_env <- function(com, com.to.identify, indicator.species,alfa = 0.05){
   
   A <- colSums(com.to.identify.sel)
   
-  est.env <- A %*% Dt
+  env.estimation <- A %*% Dt
   
-  select.est.env <- colnames(est.env)[apply(est.env, 1, which.max)]
+  out <- list(env.estimation = as.data.frame(env.estimation),
+                               belonging.env = colnames(env.estimation)[apply(env.estimation, 1, 
+                                                                      which.max)])
   
-  select.est.env
+  out
   
 }
