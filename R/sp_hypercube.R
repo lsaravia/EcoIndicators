@@ -1,5 +1,4 @@
-#' A partir de un vector o matriz de datos ambientales
-#' devuelve la presencia de una especie en hipercubos de una resolución definida
+#' Returns the abundance of a species in a grid of environmental variables
 #'
 #' @param env Vector or matrix of quantitative environmental data
 #' @param sp A vector of abundance of a species registered in the same 
@@ -15,7 +14,7 @@
 #' 
 #' # Select community (species) data
 #' 
-#' com <- soilandfauna[,18:50]
+#' com <- soilandfauna[,18:60]
 #' 
 #' # Select environmental data
 #' 

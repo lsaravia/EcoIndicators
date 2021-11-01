@@ -22,23 +22,21 @@
 #' 
 #' com <- soilandfauna[,18:50]
 #' 
-#' # Read data of new community matrix with abundances of the same
-#' # species as 'com'.
+#' # Select a subset of samples belonging to the same environment
 #' 
-#' newcom <- read.delim("data/newcom.txt")
+#' subcom <- com[3:10,]
 #' 
 #' # Select grouping factor
+#' 
 #' group <- soilandfauna[,1]
 #' 
-#' identify_env(com, newsamples, group)
+#' identify_env(com, subcom, group)
 #' 
 identify_env <- function(com, com.to.identify, group ,alfa = 0.05){
   
-  # Creamos un subconjunto de las probabilidades condicionales que 
-  # corresponden a las especies indicadoras
+  # Estima las especies indicadoras
   
   indicator.species <- select_indicator_species(com,group,alfa)
-  
   
   pcond.indic <- indicator.species$pcond[,indicator.species$names]
 

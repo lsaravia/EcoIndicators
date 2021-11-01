@@ -2,8 +2,7 @@
 % Please edit documentation in R/sp_hypercube.R
 \name{sp_hypercube}
 \alias{sp_hypercube}
-\title{A partir de un vector o matriz de datos ambientales
-devuelve la presencia de una especie en hipercubos de una resolución definida}
+\title{Returns the abundance of a species in a grid of environmental variables}
 \usage{
 sp_hypercube(env, sp, partitions = 3)
 }
@@ -21,8 +20,7 @@ An object of class ftable with the abundance of a species
 in an grid of environmental variables
 }
 \description{
-A partir de un vector o matriz de datos ambientales
-devuelve la presencia de una especie en hipercubos de una resolución definida
+Returns the abundance of a species in a grid of environmental variables
 }
 \examples{
 
@@ -30,7 +28,7 @@ data(soilandfauna)
 
 # Select community (species) data
 
-com <- soilandfauna[,18:50]
+com <- soilandfauna[,18:60]
 
 # Select environmental data
 

@@ -26,7 +26,7 @@ as_niche_factor <- function(env,partitions=3){
   }
   
   if(is.vector(env)){
-   env.factorized  <- cut(env$DAP,seq(from = min(env$DAP), to = max(env$DAP), 
+   env.factorized  <- cut(env,seq(from = min(env), to = max(env), 
                                       length.out = partitions),include.lowest = TRUE)
    env.factorized
   }
