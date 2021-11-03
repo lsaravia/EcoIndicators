@@ -2,7 +2,8 @@
 #' factorized version with a desired numbers of partitions.
 #'
 #' @param env A matrix or data.frame of quantitative environmental data.
-#' @param partitions Number of intervals in which to divide the range of each variable.
+#' @param partitions Number of intervals in which to divide the 
+#' range of each variable.
 #'
 #' @return A data.frame of numeric variables converted to factor
 #' @export

@@ -3,8 +3,8 @@
 #' @param env Vector or matrix of quantitative environmental data
 #' @param sp A vector of abundance of a species registered in the same 
 #' samples as environmental data
-#' @param partitions Number in which the range of each environmental variables
-#'  must be divided
+#' @param partitions Number of intervals in which to divide the 
+#' range of each variable.
 #' @return An object of class ftable with the abundance of a species 
 #' in an grid of environmental variables
 #' @export
