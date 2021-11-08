@@ -6,12 +6,13 @@
 #' @param com The original community used to select indicator species.
 #' @param com.to.identify A new sample o group of samples to identify the 
 #' environment that they belong.
-#' @param group vector of the samples grouping
+#' @param group vector of the samples grouping of the origina community.
 #' @param alfa Significance level used for the test.
 #' 
 #'
-#' @return A list with the the environemnt estimation value for each group 
-#' and the belonging environment estimated.
+#' @return A list with two components: a data.frame with the environment estimation 
+#' value for each group and a vector with the belonging environment estimated. 
+#' If two environments coincides in the max value then returns "NA".
 #' @export
 #'
 #' @examples

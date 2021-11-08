@@ -10,7 +10,8 @@ as_niche_factor(env, partitions = 3)
 \arguments{
 \item{env}{A matrix or data.frame of quantitative environmental data.}
 
-\item{partitions}{Number of intervals in which to divide the range of each variable.}
+\item{partitions}{Number of intervals in which to divide the 
+range of each variable.}
 }
 \value{
 A data.frame of numeric variables converted to factor

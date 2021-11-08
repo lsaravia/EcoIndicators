@@ -12,8 +12,8 @@ sp_hypercube(env, sp, partitions = 3)
 \item{sp}{A vector of abundance of a species registered in the same 
 samples as environmental data}
 
-\item{partitions}{Number in which the range of each environmental variables
-must be divided}
+\item{partitions}{Number of intervals in which to divide the 
+range of each variable.}
 }
 \value{
 An object of class ftable with the abundance of a species 
