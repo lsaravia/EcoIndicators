@@ -18,7 +18,7 @@
 #'  
 #' # Select community (species) data
 #' 
-#' com <- soilandfauna[,18:50]
+#' com <- soilandfauna[,18:60]
 #' 
 #' # Select grouping factor
 #' group <- soilandfauna[,1]
