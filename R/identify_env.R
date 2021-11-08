@@ -68,9 +68,13 @@ identify_env <- function(com, com.to.identify, group ,alfa = 0.05){
   
   env.estimation <- A %*% Dt
   
+  ifelse(sum(env.estimation - max(env.estimation)==0)!=1, belonging.env <-  "NA", 
+         belonging.env <-  colnames(env.estimation)[apply(env.estimation, 1, which.max)])
+ #   stop("With this data cannot identify the belonging environment")
+  #}
+  
   out <- list(env.estimation = as.data.frame(env.estimation),
-                               belonging.env = colnames(env.estimation)[apply(env.estimation, 1, 
-                                                                      which.max)])
+                               belonging.env = belonging.env)
   
   out
   
