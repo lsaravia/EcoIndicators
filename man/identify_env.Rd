@@ -31,7 +31,7 @@ data(soilandfauna)
  
 # Select community (species) data
 
-com <- soilandfauna[,18:50]
+com <- soilandfauna[,18:60]
 
 # Select a subset of samples belonging to the same environment
 
