@@ -25,7 +25,7 @@
 #' 
 #' identify_env_test(com, group)
 #' 
-identify_env_test <- function(com, group, times = 100, n = 5, alfa=0.05){
+identify_env_test <- function(com, group, times = 999, n = 5, alfa=0.05){
   
   acu <- lapply(unique(group), function(x) {
     com.gr <- com[group==x,]

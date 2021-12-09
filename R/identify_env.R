@@ -6,13 +6,13 @@
 #' @param com The original community used to select indicator species.
 #' @param com.to.identify A new sample o group of samples to identify the 
 #' environment that they belong.
-#' @param group vector of the samples grouping of the origina community.
+#' @param group vector of the samples grouping of the original community.
 #' @param alfa Significance level used for the test.
 #' 
 #'
 #' @return A list with two components: a data.frame with the environment estimation 
 #' value for each group and a vector with the belonging environment estimated. 
-#' If two environments coincides in the max value then returns "NA".
+#' If two environments coincides in the max value then returns NA.
 #' @export
 #'
 #' @examples
@@ -45,7 +45,7 @@ identify_env <- function(com, com.to.identify, group ,alfa = 0.05){
 
   com.indic <- com[,indicator.species$names] 
   
-  com.to.identify[com.to.identify>0] <- 1 # Transforma la matriz a presencia-ausencia
+  com.to.identify[com.to.identify>0] <- 1
   
   n <- nrow(indicator.species$pcond) 
   
@@ -69,10 +69,8 @@ identify_env <- function(com, com.to.identify, group ,alfa = 0.05){
   
   env.estimation <- A %*% Dt
   
-  ifelse(sum(env.estimation - max(env.estimation)==0)!=1, belonging.env <-  "NA", 
+  ifelse(sum(env.estimation - max(env.estimation)==0)!=1, belonging.env <-  NA, 
          belonging.env <-  colnames(env.estimation)[apply(env.estimation, 1, which.max)])
- #   stop("With this data cannot identify the belonging environment")
-  #}
   
   out <- list(env.estimation = as.data.frame(env.estimation),
                                belonging.env = belonging.env)
