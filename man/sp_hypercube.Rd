@@ -9,15 +9,15 @@ sp_hypercube(env, sp, partitions = 3)
 \arguments{
 \item{env}{Vector or matrix of quantitative environmental data}
 
-\item{sp}{A vector of abundance of a species registered in the same 
-samples as environmental data}
+\item{sp}{A vector of the abundance of a species or taxonomic unit 
+registered in the same samples as environmental data.}
 
 \item{partitions}{Number of intervals in which to divide the 
 range of each variable.}
 }
 \value{
-An object of class ftable with the abundance of a species 
-in an grid of environmental variables
+An object of class 'ftable' with the abundance of a species 
+in a grid of environmental variables.
 }
 \description{
 Returns the abundance of a species in a grid of environmental variables

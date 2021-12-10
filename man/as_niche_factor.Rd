@@ -2,7 +2,7 @@
 % Please edit documentation in R/as_niche_factor.R
 \name{as_niche_factor}
 \alias{as_niche_factor}
-\title{Converts a vector or matrix of quantitative environmental data as a 
+\title{Converts a vector or matrix of quantitative environmental data into a 
 factorized version with a desired numbers of partitions.}
 \usage{
 as_niche_factor(env, partitions = 3)
@@ -17,7 +17,7 @@ range of each variable.}
 A data.frame of numeric variables converted to factor
 }
 \description{
-Converts a vector or matrix of quantitative environmental data as a 
+Converts a vector or matrix of quantitative environmental data into a 
 factorized version with a desired numbers of partitions.
 }
 \examples{

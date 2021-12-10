@@ -2,26 +2,26 @@
 % Please edit documentation in R/identify_env_test.R
 \name{identify_env_test}
 \alias{identify_env_test}
-\title{Test the accuracy of the environment identification of a set of samples}
+\title{Tests the accuracy of the environment identification of a set of samples}
 \usage{
-identify_env_test(com, group, times = 100, n = 5, alfa = 0.05)
+identify_env_test(com, group, times = 999, n = 5, alfa = 0.05)
 }
 \arguments{
-\item{com}{The original community used to select indicator species.}
+\item{com}{The community data used to select indicator species.}
 
-\item{group}{vector of the samples grouping}
+\item{group}{Vector of the sample grouping of the community data.}
 
-\item{times}{to repeat the test}
+\item{times}{to repeat the test.}
 
-\item{n}{Subsample size}
+\item{n}{Subsample size.}
 
 \item{alfa}{Significance level used for the test.}
 }
 \value{
-A list with the accuracy of the estimation for each group
+A list with the accuracy of the estimation for each group.
 }
 \description{
-This function use
+This function tests the accuracy of the environment estimation
 }
 \examples{
 

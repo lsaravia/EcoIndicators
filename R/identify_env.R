@@ -1,12 +1,12 @@
 #' Identify the environment from new samples of community species
 #' 
-#' This function use the result of `select_indicator_species` to identify a new 
-#' set of samples of the community
+#' This function uses the result of `select_indicator_species` to identify a new 
+#' set of samples from the community
 #'
 #' @param com The original community used to select indicator species.
-#' @param com.to.identify A new sample o group of samples to identify the 
-#' environment that they belong.
-#' @param group vector of the samples grouping of the original community.
+#' @param com.to.identify A new sample or group of samples to identify the 
+#' environment that they belong to.
+#' @param group vector of the sample grouping of the original community.
 #' @param alfa Significance level used for the test.
 #' 
 #'

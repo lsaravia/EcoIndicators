@@ -1,15 +1,15 @@
-#' Test the accuracy of the environment identification of a set of samples
+#' Tests the accuracy of the environment identification of a set of samples
 #' 
-#' This function use 
+#' This function tests the accuracy of the environment estimation
 #'
-#' @param com The original community used to select indicator species.
-#' @param group vector of the samples grouping
-#' @param times to repeat the test
-#' @param n Subsample size 
+#' @param com The community data used to select indicator species.
+#' @param group Vector of the sample grouping of the community data.
+#' @param times to repeat the test.
+#' @param n Subsample size.
 #' @param alfa Significance level used for the test.
 #' 
 #'
-#' @return A list with the accuracy of the estimation for each group
+#' @return A list with the accuracy of the estimation for each group.
 #' @export
 #'
 #' @examples

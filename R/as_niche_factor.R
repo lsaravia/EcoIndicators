@@ -1,4 +1,4 @@
-#' Converts a vector or matrix of quantitative environmental data as a 
+#' Converts a vector or matrix of quantitative environmental data into a 
 #' factorized version with a desired numbers of partitions.
 #'
 #' @param env A matrix or data.frame of quantitative environmental data.

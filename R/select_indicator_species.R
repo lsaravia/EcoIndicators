@@ -1,13 +1,18 @@
 #' Select indicator species
 #' 
-#' Selection of species that indicate with a given probability of
+#' Selection of species or taxonomic units, depending on the taxonomic resolution
+#'  in the original data set, that indicate with a given probability of
 #' belonging to an environment. 
 #' 
-#' @param com matrix or data.frame with species in columns and samples in rows.
-#' @param group vector of the samples grouping.
-#' @param alfa significance level used for the test.
+#' @param com Community data. matrix or data.frame with species in columns and samples in rows.
+#' @param group Vector of the sample grouping of the community data.
+#' @param alfa Significance level used for the test.
 #'
-#' @return A data.frame with the species that are above
+#' @return A list with two components: a vector of the name of the 
+#' indicator species selected 
+#' and a vector of the conditional probability of each species 
+#' or taxonomic unit in the data.
+#' 
 #' @import stats
 #' @export
 #'

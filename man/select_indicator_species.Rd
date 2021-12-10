@@ -7,17 +7,21 @@
 select_indicator_species(com, group, alfa = 0.05)
 }
 \arguments{
-\item{com}{matrix or data.frame with species in columns and samples in rows.}
+\item{com}{Community data. matrix or data.frame with species in columns and samples in rows.}
 
-\item{group}{vector of the samples grouping.}
+\item{group}{Vector of the sample grouping of the community data.}
 
-\item{alfa}{significance level used for the test.}
+\item{alfa}{Significance level used for the test.}
 }
 \value{
-A data.frame with the species that are above
+A list with two components: a vector of the name of the 
+indicator species selected 
+and a vector of the conditional probability of each species 
+or taxonomic unit in the data.
 }
 \description{
-Selection of species that indicate with a given probability of
+Selection of species or taxonomic units, depending on the taxonomic resolution
+ in the original data set, that indicate with a given probability of
 belonging to an environment.
 }
 \examples{

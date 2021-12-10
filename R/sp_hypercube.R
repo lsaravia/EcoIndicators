@@ -1,12 +1,13 @@
 #' Returns the abundance of a species in a grid of environmental variables
 #'
 #' @param env Vector or matrix of quantitative environmental data
-#' @param sp A vector of abundance of a species registered in the same 
-#' samples as environmental data
+#' @param sp A vector of the abundance of a species or taxonomic unit 
+#' registered in the same samples as environmental data.
 #' @param partitions Number of intervals in which to divide the 
 #' range of each variable.
-#' @return An object of class ftable with the abundance of a species 
-#' in an grid of environmental variables
+#' @return An object of class 'ftable' with the abundance of a species 
+#' in a grid of environmental variables.
+#' 
 #' @export
 #' @examples 
 #' 

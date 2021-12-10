@@ -9,21 +9,21 @@ identify_env(com, com.to.identify, group, alfa = 0.05)
 \arguments{
 \item{com}{The original community used to select indicator species.}
 
-\item{com.to.identify}{A new sample o group of samples to identify the 
-environment that they belong.}
+\item{com.to.identify}{A new sample or group of samples to identify the 
+environment that they belong to.}
 
-\item{group}{vector of the samples grouping of the origina community.}
+\item{group}{vector of the sample grouping of the original community.}
 
 \item{alfa}{Significance level used for the test.}
 }
 \value{
 A list with two components: a data.frame with the environment estimation 
 value for each group and a vector with the belonging environment estimated. 
-If two environments coincides in the max value then returns "NA".
+If two environments coincides in the max value then returns NA.
 }
 \description{
-This function use the result of `select_indicator_species` to identify a new 
-set of samples of the community
+This function uses the result of `select_indicator_species` to identify a new 
+set of samples from the community
 }
 \examples{
 
