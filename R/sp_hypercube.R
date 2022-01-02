@@ -1,7 +1,8 @@
-#' Returns the abundance of a species in a grid of environmental variables
+#' Returns the frequency of any taxonomic unit in a selected combination 
+#' of environmental factors
 #'
 #' @param env Vector or matrix of quantitative environmental data
-#' @param sp A vector of the abundance of a species or taxonomic unit 
+#' @param sp A vector of the abundance or presence of a species or taxonomic unit 
 #' registered in the same samples as environmental data.
 #' @param partitions Number of intervals in which to divide the 
 #' range of each variable.
