@@ -27,7 +27,7 @@
 #' 
 #' sp_hypercube(env[,c("P","OM","N")],com[,"Onychiuridae"],5)
 #' 
-#' # Obtain the simultaneous presence of the four species in a grid 
+#' # To obtain the simultaneous presence of the four species in a grid 
 #' # of environmental variables
 #' 
 #' sp_hypercube(env[,c("P","OM","N")],com[,"Onychiuridae"] *
