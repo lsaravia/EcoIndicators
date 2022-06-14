@@ -14,20 +14,20 @@
 #' 
 #' data(soilandfauna)
 #' 
-#' # Select community (species) data
+#' # Selecting community (species) data
 #' 
 #' com <- soilandfauna[,18:60]
 #' 
-#' # Select environmental data
+#' # Selecting environmental data
 #' 
 #' env <- soilandfauna[,3:17]
 #' 
-#' # Obtain the presence of the Onychiuridae species in a grid 
+#' # Obtaining the presence of the Onychiuridae species in a grid 
 #' # of environmental variables 
 #' 
 #' sp_hypercube(env[,c("P","OM","N")],com[,"Onychiuridae"],5)
 #' 
-#' # To obtain the simultaneous presence of the four species in a grid 
+#' # Obtaining the simultaneous presence of the four species in a grid 
 #' # of environmental variables
 #' 
 #' sp_hypercube(env[,c("P","OM","N")],com[,"Onychiuridae"] *

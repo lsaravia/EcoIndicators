@@ -1,7 +1,7 @@
 Package: Ecoindicators
 Version: 0.0.1.0
-Date: 2021-09-20
-Title: An algorithm for the identification of indicator taxonomic units and their use in analyses of ecosystem state
+Date: 2022-06-14
+Title: An Algorithm for the Identification of Indicator Taxonomic Units and their Use in Analyses of Ecosystem State
 License: GPL-2
 Description: A set of functions to identify indicator taxonomic units, and to estimate to 
  which environment a new sample belongs to, according to species composition. 
