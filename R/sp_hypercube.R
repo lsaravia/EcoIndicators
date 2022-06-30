@@ -2,12 +2,13 @@
 #' of environmental factors
 #'
 #' @param env Vector or matrix of quantitative environmental data
-#' @param sp A vector of the abundance or presence of a species or taxonomic unit 
+#' @param sp A vector or matrix of the abundance or presence of a species or taxonomic unit 
 #' registered in the same samples as environmental data.
 #' @param partitions Number of intervals in which to divide the 
 #' range of each variable.
-#' @return An object of class 'ftable' with the abundance of a species 
-#' in a grid of environmental variables.
+#' @param intersection logical, in case of param sp has two or more species
+#' @return An object of class 'ftable' with the abundance of a species or
+#'  combination of them in a grid of environmental variables.
 #' 
 #' @export
 #' @examples 
@@ -32,11 +33,19 @@
 #' 
 #' sp_hypercube(env[,c("P","OM","N")],com[,"Onychiuridae"] *
 #'  com[,"Isotomidae"] * com[,"Eupodoidea"]* com[,"Aporrectodea_rosea"],5)
-sp_hypercube <- function(env,sp,partitions=3){
+sp_hypercube <- function(env,sp,partitions=3,intersection=TRUE){
   
   if (!is.vector(sp)){
-    stop("Expected a vector of species abundances")
+    if (intersection =="TRUE"){
+      sp <- apply(sp,1,prod)
+    }
+    else {
+      sp <- rowSums(sp)
+    }
   }
+    
+  
+  
   
   sp[sp>0] <- 1
   partitions <- partitions + 1
