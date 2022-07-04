@@ -23,7 +23,7 @@
 #' # Select grouping factor
 #' group <- soilandfauna[,1]
 #' 
-#' identify_env_test(com, group)
+#' identify_env_test(com, group, times = 100)
 #' 
 identify_env_test <- function(com, group, times = 999, n = 5, alfa=0.05){
   
