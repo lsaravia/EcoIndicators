@@ -34,17 +34,19 @@ data(soilandfauna)
 
 com <- soilandfauna[,18:60]
 
-# Estimate the indicator species present
+# Select grouping factor
 
-indicator.species <- select_indicator_species(com)
+group <- soilandfauna[,1]
 
 # Select a subset of samples belonging to the same environment
 
 subcom <- com[3:10,]
 
-# Select grouping factor
+# Estimate the indicator species present
 
-group <- soilandfauna[,1]
+indicator.species <- select_indicator_species(com, group)
+
+# Estimate the environment or group the samples belongs
 
 identify_env(subcom, indicator.species, group)
 

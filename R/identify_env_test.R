@@ -30,10 +30,11 @@ identify_env_test <- function(com, group, times = 999, n = 5, alfa=0.05){
   acu <- lapply(unique(group), function(x) {
     com.gr <- com[group==x,]
     R <- rep(0,times)
-    R <- lapply(1:times, function(x){identify_env(com,
-                                                   com.gr[sample(nrow(com.gr),
-                                                                 size = n,replace = TRUE),],
-                                                   group)$belonging.env
+    R <- lapply(1:times, 
+                function(x){identify_env(com.gr[sample(nrow(com.gr), select_indicator_species(com),
+                                                       size = n,
+                                                       replace = TRUE),],
+                                         group)$belonging.env
       })
     out <-sum(R==x)
     data.frame(group= x, accuracy= out/times)
