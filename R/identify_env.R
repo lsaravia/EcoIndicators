@@ -1,11 +1,14 @@
 #' Identify the environment from new samples of community species
 #' 
-#' This function uses the result of `select_indicator_species` to identify a new 
+#' This function uses the result of [select_indicator_species()] to identify a new 
 #' set of samples from the community
 #'
-#' @param com The original community used to select indicator species.
 #' @param com.to.identify A new sample or group of samples to identify the 
 #' environment that they belong to.
+#' @param indicator.species The indicator species such as that returned by
+#'  [select_indicator_species()]
+#' 
+#' 
 #' @param group vector of the sample grouping of the original community.
 #' @param alfa Significance level used for the test.
 #' 
@@ -27,17 +30,19 @@
 #' 
 #' subcom <- com[3:10,]
 #' 
+#' # Estimate 
+#' 
 #' # Select grouping factor
 #' 
 #' group <- soilandfauna[,1]
 #' 
-#' identify_env(com, subcom, group)
+#' identify_env(subcom, group)
 #' 
-identify_env <- function(com, com.to.identify, group ,alfa = 0.05){
+identify_env <- function(com.to.identify, indicator.species, group ,alfa = 0.05){
   
   # Estima las especies indicadoras
   
-  indicator.species <- select_indicator_species(com,group,alfa)
+  #indicator.species <- select_indicator_species(com,group,alfa)
   
   pcond.indic <- indicator.species$pcond[,indicator.species$names]
 

@@ -36,7 +36,7 @@
 sp_hypercube <- function(env,sp,partitions=3,intersection=TRUE){
   
   if (!is.vector(sp)){
-    if (intersection =="TRUE"){
+    if (intersection){
       sp <- apply(sp,1,prod)
     }
     else {
@@ -44,8 +44,6 @@ sp_hypercube <- function(env,sp,partitions=3,intersection=TRUE){
     }
   }
     
-  
-  
   
   sp[sp>0] <- 1
   partitions <- partitions + 1

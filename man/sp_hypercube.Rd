@@ -2,44 +2,48 @@
 % Please edit documentation in R/sp_hypercube.R
 \name{sp_hypercube}
 \alias{sp_hypercube}
-\title{Returns the abundance of a species in a grid of environmental variables}
+\title{Returns the frequency of any taxonomic unit in a selected combination 
+of environmental factors}
 \usage{
-sp_hypercube(env, sp, partitions = 3)
+sp_hypercube(env, sp, partitions = 3, intersection = TRUE)
 }
 \arguments{
 \item{env}{Vector or matrix of quantitative environmental data}
 
-\item{sp}{A vector of the abundance of a species or taxonomic unit 
+\item{sp}{A vector or matrix of the abundance or presence of a species or taxonomic unit 
 registered in the same samples as environmental data.}
 
 \item{partitions}{Number of intervals in which to divide the 
 range of each variable.}
+
+\item{intersection}{logical, in case of param sp has two or more species}
 }
 \value{
-An object of class 'ftable' with the abundance of a species 
-in a grid of environmental variables.
+An object of class 'ftable' with the abundance of a species or
+ combination of them in a grid of environmental variables.
 }
 \description{
-Returns the abundance of a species in a grid of environmental variables
+Returns the frequency of any taxonomic unit in a selected combination 
+of environmental factors
 }
 \examples{
 
 data(soilandfauna)
 
-# Select community (species) data
+# Selecting community (species) data
 
 com <- soilandfauna[,18:60]
 
-# Select environmental data
+# Selecting environmental data
 
 env <- soilandfauna[,3:17]
 
-# Obtain the presence of the Onychiuridae species in a grid 
+# Obtaining the presence of the Onychiuridae species in a grid 
 # of environmental variables 
 
 sp_hypercube(env[,c("P","OM","N")],com[,"Onychiuridae"],5)
 
-# Obtain the simultaneous presence of the four species in a grid 
+# Obtaining the simultaneous presence of the four species in a grid 
 # of environmental variables
 
 sp_hypercube(env[,c("P","OM","N")],com[,"Onychiuridae"] *
