@@ -27,7 +27,9 @@ Rosana Sandler, 2020, “Indicadores de sustentabilidad del suelo basados en la 
 }
 \references{
 %%  ~~ possibly secondary sources and usages ~~
-Rosana Sandler, 2020, “Indicadores de sustentabilidad del suelo basados en la estructura y funcionamiento de la fauna edáfica.” Ph.D. thesis
+Sandler, R. V.; Falco, L. B.; Di Ciocco, C. A.; Huerta, R. C. \& Coviella, C. E. (2018) \emph{Change of collembolan (Hexapoda: Collembola) community structure related to anthropic soil disturbance}. Revista de la Facultad de Ciencias Agrarias de la Universidad Nacional de Cuyo. pp: 217-231.
+
+de la Vega, H.; Falco, L. B. ; Saravia, L.; Sandler, R.; Duhour, A. E.; Velazco, V. N. \& Coviella, C. E. (2022) \emph{An algorithm for the identification of indicator taxonomic units and their use in analyses of ecosystem state} . bioRxiv, Cold Spring Harbor Laboratory.
 }
 \examples{
 data(soilandfauna)
