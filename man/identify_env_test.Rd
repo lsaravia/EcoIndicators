@@ -34,6 +34,6 @@ com <- soilandfauna[,18:60]
 # Select grouping factor
 group <- soilandfauna[,1]
 
-identify_env_test(com, group)
+identify_env_test(com, group, times = 100)
 
 }
