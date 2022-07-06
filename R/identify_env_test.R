@@ -23,17 +23,19 @@
 #' # Select grouping factor
 #' group <- soilandfauna[,1]
 #' 
-#' identify_env_test(com, group, times = 100)
+#' identify_env_test(com, group, times = 100, n = 4)
 #' 
 identify_env_test <- function(com, group, times = 999, n = 5, alfa=0.05){
   
+  indicator.species <- select_indicator_species(com,group)
   acu <- lapply(unique(group), function(x) {
     com.gr <- com[group==x,]
     R <- rep(0,times)
     R <- lapply(1:times, 
-                function(x){identify_env(com.gr[sample(nrow(com.gr), select_indicator_species(com,group),
+                function(x){identify_env(com.gr[sample(nrow(com.gr),
                                                        size = n,
                                                        replace = TRUE),],
+                                         indicator.species,
                                          group)$belonging.env
       })
     out <-sum(R==x)
