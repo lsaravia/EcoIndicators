@@ -43,9 +43,10 @@ env <- soilandfauna[,3:17]
 
 sp_hypercube(env[,c("P","OM","N")],com[,"Onychiuridae"],5)
 
-# Obtaining the simultaneous presence of the four species in a grid 
+# Obtaining the simultaneous presence of four species in a grid 
 # of environmental variables
 
-sp_hypercube(env[,c("P","OM","N")],com[,"Onychiuridae"] *
- com[,"Isotomidae"] * com[,"Eupodoidea"]* com[,"Aporrectodea_rosea"],5)
+sp_hypercube(env[,c("P","OM","N")],com[,c("Onychiuridae","Isotomidae", 
+"Eupodoidea", "Aporrectodea_rosea",5)
+
 }
