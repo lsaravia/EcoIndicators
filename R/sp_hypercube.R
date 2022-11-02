@@ -28,11 +28,12 @@
 #' 
 #' sp_hypercube(env[,c("P","OM","N")],com[,"Onychiuridae"],5)
 #' 
-#' # Obtaining the simultaneous presence of the four species in a grid 
+#' # Obtaining the simultaneous presence of four species in a grid 
 #' # of environmental variables
 #' 
-#' sp_hypercube(env[,c("P","OM","N")],com[,"Onychiuridae"] *
-#'  com[,"Isotomidae"] * com[,"Eupodoidea"]* com[,"Aporrectodea_rosea"],5)
+#' sp_hypercube(env[,c("P","OM","N")],com[,c("Onychiuridae","Isotomidae", 
+#' "Eupodoidea", "Aporrectodea_rosea",5)
+#' 
 sp_hypercube <- function(env,sp,partitions=3,intersection=TRUE){
   
   if (!is.vector(sp)){

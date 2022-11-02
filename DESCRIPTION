@@ -5,14 +5,16 @@ Title: An Algorithm for the Identification of Indicator Taxonomic Units and thei
 License: GPL-2
 Description: A set of functions to identify indicator taxonomic units, and to estimate to 
  which environment a new sample belongs to, according to species composition. 
- It also shows the presence of a species in a 
- hypercube of environmental variables.
+ It also shows the presence of a species in a hypercube of environmental variables.
 Authors@R: c(person("Hernán", "de la Vega",role="aut"), 
             person("Liliana", "Falco", role="aut"), 
             person("Leonardo",  "Saravia", role="aut"), 
             person("Andres", "Duhour", role=c("aut","cre"), email="aduhour@unlu.edu.ar"),
             person("Rosana", "Sandler", role="aut"),
             person("Carlos", "Coviella", role="aut"))
+Author: Andrés Duhour, Hernán de la Vega, Leonardo Saravia,
+Maintainer: Andrés Duhour <aduhour@unlu.edu.ar>
+URL: https://github.com/lsaravia/EcoIndicators
 Encoding: UTF-8
 Imports: stats 
 RoxygenNote: 7.1.2

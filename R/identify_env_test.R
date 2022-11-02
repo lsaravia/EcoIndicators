@@ -27,7 +27,7 @@
 #' 
 identify_env_test <- function(com, group, times = 999, n = 5, alfa=0.05){
   
-  indicator.species <- select_indicator_species(com,group)
+  indicator.species <- select_indicator_species(com,group,alfa)
   acu <- lapply(unique(group), function(x) {
     com.gr <- com[group==x,]
     R <- rep(0,times)
